@@ -93,8 +93,8 @@ const Home = () => {
         </div>
 
         {/* pizza product  */}
-        <div className="container px-5 mx-auto">
-          <div className="flex flex-wrap justify-center -m-8">
+        <div className="container mx-auto ">
+          <div className="flex flex-wrap justify-center">
             <div className="p-4 md:w-1/3">
               <div className="overflow-hidden border rounded-lg border-opacity-60">
                 <img
@@ -224,7 +224,7 @@ const Home = () => {
       {/* Services section */}
       <section
         id="services-section"
-        className="py-4 mt-6 border bg-gradient-to-r from-amber-50 to-orange-300"
+        className="py-4 mt-6 bg-gradient-to-r from-amber-50 to-orange-300"
       >
         <div class="container flex">
           <div
