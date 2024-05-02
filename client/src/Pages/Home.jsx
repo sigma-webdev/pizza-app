@@ -400,7 +400,7 @@ const Home = () => {
           </div>
           <div class="lg:w-1/3 md:w-1/2 bg-white flex flex-col md:ml-auto w-full md:py-8 mt-8 md:mt-0">
             <h2 class="pb-5 text-3xl font-bold text-left text-transparent bg-gradient-to-r from-orange-600 to-orange-100 bg-clip-text">
-              Feedback
+              About
             </h2>
             <p class="leading-relaxed mb-5 text-gray-600">
               At Pizza App, we are passionate about crafting exceptional pizzas
