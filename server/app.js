@@ -19,14 +19,20 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // third party middlewares
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 app.use(cookieParser());
 app.use(morgan("dev"));
 
 app.use(
   fileUpload({
     useTempFiles: true,
-    tempFileDir: "/tmp/"
+    tempFileDir: "/tmp/",
   })
 );
 
