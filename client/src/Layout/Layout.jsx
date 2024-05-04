@@ -1,14 +1,32 @@
 import React from 'react';
 import pizzaLogo from '../assets/images/pizzaLogo.png';
 import Footer from '../Components/Footer';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../Redux/authSlice';
+import toast from 'react-hot-toast';
+import { scrollToSection } from '../Helper/smoothScroll';
 
 export const Layout = ({ children }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const isLoggedIn = useSelector((state) => state?.auth?.isLoggedIn);
+  const role = useSelector((state) => state?.auth?.role);
+
   // smooth scroll
-  const scrollToSection = (id) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+
+  // handle logout
+  const handleLogout = async (event) => {
+    event.preventDefault();
+
+    // calling the logout action
+    const res = await dispatch(logout());
+    console.log(res);
+
+    // redirect to home once logout
+    if (res?.payload?.success) {
+      navigate('/');
     }
   };
 
@@ -53,9 +71,26 @@ export const Layout = ({ children }) => {
               <Link to={'/signup'}> Signup </Link>
             </li>
             <li className="hover:text-[#FF9110]">
-              <Link to={'/login'}> Login</Link>
+              {/* if user logged in show logout vice versa */}
+              {isLoggedIn ? (
+                <Link onClick={handleLogout}> Logout </Link>
+              ) : (
+                <Link to={'/login'}> Login </Link>
+              )}
             </li>
-            <li className="hover:text-[#FF9110]"> Profile </li>
+
+            {isLoggedIn &&
+              (isLoggedIn && role === 'ADMIN' ? (
+                <li className="hover:text-[#FF9110]">
+                  <Link to={'/admin'}> Admin </Link>
+                </li>
+              ) : (
+                <li className="hover:text-[#FF9110]">
+                  {/* TODO: check the path */}
+                  <Link to={'/user/profile'}> Profile </Link>
+                </li>
+              ))}
+
             <div>
               <svg
                 width="25"

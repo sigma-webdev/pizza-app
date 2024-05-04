@@ -6,6 +6,7 @@ import cooking from '../assets/images/cooking1.png';
 import orderfood from '../assets/images/orderFood.png';
 import pickup from '../assets/images/pickup.png';
 import enjoy from '../assets/images/enjoy.png';
+import { scrollToSection } from '../Helper/smoothScroll';
 
 const Home = () => {
   return (
@@ -26,7 +27,10 @@ const Home = () => {
             wings with just a few taps. Enjoy exclusive promotions and quick
             delivery.
           </p>
-          <button className="px-5 py-2 text-white bg-yellow-500 border rounded-md hover:bg-yellow-600 group ">
+          <button
+            onClick={() => scrollToSection('menu-section')}
+            className="px-5 py-2 text-white bg-yellow-500 border rounded-md hover:bg-yellow-600 group "
+          >
             {' '}
             Order Now
             <span className="inline-block transition-transform ease-in-out group-hover:translate-x-2">
