@@ -17,7 +17,7 @@ export const Layout = ({ children }) => {
       {/* nav bar */}
       <nav className="flex items-center justify-around h-16 text-[#6B7280]  font-mono shadow-md border-none">
         <div className="flex items-center justify-center">
-          <h3> Pizza App </h3>
+          <Link to={'/'}> Pizza APP</Link>
           <img src={pizzaLogo} alt="Pizza Logo" />
         </div>
 
@@ -49,8 +49,12 @@ export const Layout = ({ children }) => {
         {/*  */}
         <div>
           <ul className="flex gap-4">
-            <li className="hover:text-[#FF9110]"> SignUp </li>
-            <li className="hover:text-[#FF9110]"> Login </li>
+            <li className="hover:text-[#FF9110]">
+              <Link to={'/signup'}> Signup </Link>
+            </li>
+            <li className="hover:text-[#FF9110]">
+              <Link to={'/login'}> Login</Link>
+            </li>
             <li className="hover:text-[#FF9110]"> Profile </li>
             <div>
               <svg
