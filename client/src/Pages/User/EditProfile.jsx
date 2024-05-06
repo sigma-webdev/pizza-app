@@ -154,7 +154,7 @@ const EditProfile = () => {
             )}
             <button
               type="submit"
-              className="w-full py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full py-2 text-white bg-yellow-500 rounded-md hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               Save Changes
             </button>

@@ -261,7 +261,7 @@ const Home = () => {
                 <svg
                   fill="none"
                   stroke="currentColor"
-                  stroke-linecap="round"
+                  strokeLinecap="round"
                   stroke-linejoin="round"
                   stroke-width="3"
                   class="text-[#F38339] w-10 h-10 flex-shrink-0 mr-4"
@@ -278,7 +278,7 @@ const Home = () => {
                 <svg
                   fill="none"
                   stroke="currentColor"
-                  stroke-linecap="round"
+                  strokeLinecap="round"
                   stroke-linejoin="round"
                   stroke-width="3"
                   class="text-[#F38339] w-10 h-10 flex-shrink-0 mr-4"
@@ -295,7 +295,7 @@ const Home = () => {
                 <svg
                   fill="none"
                   stroke="currentColor"
-                  stroke-linecap="round"
+                  strokeLinecap="round"
                   stroke-linejoin="round"
                   stroke-width="3"
                   class="text-[#F38339] w-10 h-10 flex-shrink-0 mr-4"
