@@ -10,8 +10,8 @@ const Profile = () => {
   return (
     <Layout>
       {/* profile image and name */}
-      <section className="py-4 2xl:py-3">
-        <div className="flex items-center justify-center gap-4 py-5 2xl:py-32">
+      <section className="py-5 2xl:py-5">
+        <div className="flex items-center justify-center gap-8 py-5 2xl:py-32">
           <div className="overflow-hidden border rounded-full w-36 h-36 ">
             {userData?.avatar?.secure_url ? (
               <img
@@ -38,22 +38,31 @@ const Profile = () => {
           </div>
 
           <div>
-            <p>
+            <p className="pb-2 text-3xl font-bold">
               {' '}
               {userData?.firstName[0].toUpperCase() +
                 userData?.firstName.slice(1)}{' '}
             </p>
 
-            <div className="flex items-center justify-center gap-2 ">
-              <Link to={'orders'} className="text-center border w-28">
+            <div className="flex items-center justify-center gap-4 ">
+              <Link
+                to={'orders'}
+                className="p-1 text-center text-white bg-yellow-500 border rounded-md w-28 hover:bg-yellow-600"
+              >
                 {' '}
                 <button> View Orders </button>
               </Link>
-              <Link to={'/profile/details'} className="text-center border w-28">
+              <Link
+                to={'/profile/details'}
+                className="p-1 text-center text-white bg-yellow-500 border rounded-md w-28 hover:bg-yellow-600"
+              >
                 {' '}
                 <button> Edit details </button>
               </Link>
-              <Link to={'/profile/edit'} className="w-32 text-center border">
+              <Link
+                to={'/profile/edit'}
+                className="p-1 text-center text-white bg-yellow-500 border rounded-md hover:bg-yellow-600"
+              >
                 {' '}
                 <button> Change password </button>
               </Link>
