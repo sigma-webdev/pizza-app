@@ -7,6 +7,7 @@ import { Denied } from './Pages/Denied';
 import NotFound from './Pages/NotFound';
 import Profile from './Pages/User/Profile';
 import EditProfile from './Pages/User/EditProfile';
+import ChangePassword from './Pages/Password/ChangePassword';
 
 function App() {
   return (
@@ -26,6 +27,11 @@ function App() {
         <Route>
           <Route path="/user/profile" element={<Profile />} />
           <Route path="/user/editprofile" element={<EditProfile />} />
+        </Route>
+
+        {/* password section */}
+        <Route>
+          <Route path="/auth/change-password" element={<ChangePassword />} />
         </Route>
 
         {/* page not found */}

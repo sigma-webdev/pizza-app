@@ -63,7 +63,7 @@ const Profile = () => {
                 <button> Edit details </button>
               </Link>
               <Link
-                to={'/profile/edit'}
+                to={'/auth/change-password'}
                 className="p-1 text-center text-white bg-yellow-500 border rounded-md hover:bg-yellow-600"
               >
                 {' '}

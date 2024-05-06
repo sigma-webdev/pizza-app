@@ -101,6 +101,28 @@ export const updateProfile = createAsyncThunk(
   }
 );
 
+// change password
+export const changePassword = createAsyncThunk(
+  '/user/profile/change-password',
+  async (data) => {
+    try {
+      let res = axiosInstance.post('/auth/change-password', data);
+      toast.promise(res, {
+        loading: 'changing password',
+        success: (data) => {
+          return data?.data?.message;
+        },
+        error: 'Failed to update profile',
+      });
+      // getting response resolve here
+      res = await res;
+      return res.data;
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    }
+  }
+);
+
 const authSlice = createSlice({
   name: 'auth',
   initialState,
