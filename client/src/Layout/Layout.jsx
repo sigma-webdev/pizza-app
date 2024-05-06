@@ -1,20 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import pizzaLogo from '../assets/images/pizzaLogo.png';
 import Footer from '../Components/Footer';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../Redux/authSlice';
-import toast from 'react-hot-toast';
 import { scrollToSection } from '../Helper/smoothScroll';
 
 export const Layout = ({ children }) => {
+  const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const isLoggedIn = useSelector((state) => state?.auth?.isLoggedIn);
   const role = useSelector((state) => state?.auth?.role);
-
-  // smooth scroll
 
   // handle logout
   const handleLogout = async (event) => {
@@ -22,7 +20,6 @@ export const Layout = ({ children }) => {
 
     // calling the logout action
     const res = await dispatch(logout());
-    console.log(res);
 
     // redirect to home once logout
     if (res?.payload?.success) {
@@ -41,34 +38,39 @@ export const Layout = ({ children }) => {
 
         {/* center nav items  */}
         <div>
-          <ul className="flex gap-4">
-            <li className="hover:text-[#FF9110]">
-              {' '}
-              <Link to="#" onClick={() => scrollToSection('menu-section')}>
+          {location.pathname === '/' && (
+            <ul className="flex gap-4">
+              <li className="hover:text-[#FF9110]">
                 {' '}
-                Menu{' '}
-              </Link>{' '}
-            </li>
-            <li className="hover:text-[#FF9110]">
-              <Link to="#" onClick={() => scrollToSection('services-section')}>
-                {' '}
-                Services{' '}
-              </Link>
-            </li>
-            <li className="hover:text-[#FF9110]">
-              <Link to="#" onClick={() => scrollToSection('about-section')}>
-                {' '}
-                About{' '}
-              </Link>
-            </li>
-          </ul>
+                <Link to="#" onClick={() => scrollToSection('menu-section')}>
+                  {' '}
+                  Menu{' '}
+                </Link>{' '}
+              </li>
+              <li className="hover:text-[#FF9110]">
+                <Link
+                  to="#"
+                  onClick={() => scrollToSection('services-section')}
+                >
+                  {' '}
+                  Services{' '}
+                </Link>
+              </li>
+              <li className="hover:text-[#FF9110]">
+                <Link to="#" onClick={() => scrollToSection('about-section')}>
+                  {' '}
+                  About{' '}
+                </Link>
+              </li>
+            </ul>
+          )}
         </div>
 
         {/*  */}
         <div>
           <ul className="flex gap-4">
             <li className="hover:text-[#FF9110]">
-              <Link to={'/signup'}> Signup </Link>
+              {!isLoggedIn && <Link to={'/signup'}> Signup </Link>}
             </li>
             <li className="hover:text-[#FF9110]">
               {/* if user logged in show logout vice versa */}
