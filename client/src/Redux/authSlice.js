@@ -74,12 +74,32 @@ export const logout = createAsyncThunk('auth/logout', async () => {
 export const getUserData = createAsyncThunk('/user/details', async () => {
   try {
     const res = await axiosInstance.get('/user/profile');
-    console.log(res);
     return res?.data;
   } catch (error) {
     toast.error(error.message);
   }
 });
+
+export const updateProfile = createAsyncThunk(
+  '/user/update/profile',
+  async (data) => {
+    try {
+      let res = axiosInstance.put('/user/profile', data);
+      toast.promise(res, {
+        loading: 'Updating...',
+        success: (data) => {
+          return data?.data?.message;
+        },
+        error: 'Failed to update profile',
+      });
+      // getting response resolve here
+      res = await res;
+      return res.data;
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    }
+  }
+);
 
 const authSlice = createSlice({
   name: 'auth',

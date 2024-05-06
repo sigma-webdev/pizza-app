@@ -13,9 +13,10 @@ const Profile = () => {
       <section className="py-5 2xl:py-5">
         <div className="flex items-center justify-center gap-8 py-5 2xl:py-32">
           <div className="overflow-hidden border rounded-full w-36 h-36 ">
-            {userData?.avatar?.secure_url ? (
+            {/* TODO: fix sometimes secure_url or url */}
+            {userData?.avatar?.url ? (
               <img
-                src={userData?.avatar?.secure_url}
+                src={userData?.avatar?.url}
                 alt="profile image"
                 className="w-full h-full "
               />
@@ -40,8 +41,10 @@ const Profile = () => {
           <div>
             <p className="pb-2 text-3xl font-bold">
               {' '}
-              {userData?.firstName[0].toUpperCase() +
-                userData?.firstName.slice(1)}{' '}
+              {userData
+                ? userData?.firstName[0].toUpperCase() +
+                  userData?.firstName.slice(1)
+                : ''}
             </p>
 
             <div className="flex items-center justify-center gap-4 ">
@@ -53,7 +56,7 @@ const Profile = () => {
                 <button> View Orders </button>
               </Link>
               <Link
-                to={'/profile/details'}
+                to={'/user/editprofile'}
                 className="p-1 text-center text-white bg-yellow-500 border rounded-md w-28 hover:bg-yellow-600"
               >
                 {' '}

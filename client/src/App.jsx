@@ -6,6 +6,7 @@ import Login from './Pages/Login';
 import { Denied } from './Pages/Denied';
 import NotFound from './Pages/NotFound';
 import Profile from './Pages/User/Profile';
+import EditProfile from './Pages/User/EditProfile';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         {/* user data */}
         <Route>
           <Route path="/user/profile" element={<Profile />} />
+          <Route path="/user/editprofile" element={<EditProfile />} />
         </Route>
 
         {/* page not found */}
