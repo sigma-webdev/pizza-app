@@ -8,6 +8,8 @@ import NotFound from './Pages/NotFound';
 import Profile from './Pages/User/Profile';
 import EditProfile from './Pages/User/EditProfile';
 import ChangePassword from './Pages/Password/ChangePassword';
+import RequireAuth from './Components/Auth/RequireAuth';
+import NotRequireAuth from './Components/Auth/NotRequireAuth';
 
 function App() {
   return (
@@ -18,19 +20,15 @@ function App() {
         <Route path="/" element={<Home />} />
 
         {/* signUp and login  */}
-        <Route>
+        <Route element={<NotRequireAuth />}>
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
         </Route>
 
         {/* user data */}
-        <Route>
+        <Route element={<RequireAuth allowedRoles={['USER', 'ADMIN']} />}>
           <Route path="/user/profile" element={<Profile />} />
           <Route path="/user/editprofile" element={<EditProfile />} />
-        </Route>
-
-        {/* password section */}
-        <Route>
           <Route path="/auth/change-password" element={<ChangePassword />} />
         </Route>
 
