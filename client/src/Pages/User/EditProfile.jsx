@@ -61,7 +61,6 @@ const EditProfile = () => {
     if (formData.avatar instanceof File) {
       tempFormData.append('avatar', formData.avatar);
     }
-    console.log(tempFormData);
     const res = await dispatch(updateProfile(tempFormData));
 
     // fetch the data to update
