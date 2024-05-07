@@ -80,6 +80,7 @@ export const getUserData = createAsyncThunk('/user/details', async () => {
   }
 });
 
+// handle update user profile
 export const updateProfile = createAsyncThunk(
   '/user/update/profile',
   async (data) => {
@@ -101,7 +102,7 @@ export const updateProfile = createAsyncThunk(
   }
 );
 
-// change password
+// change user password
 export const changePassword = createAsyncThunk(
   '/user/profile/change-password',
   async (data) => {
@@ -123,6 +124,51 @@ export const changePassword = createAsyncThunk(
   }
 );
 
+// function to handle forget password
+export const forgetPassword = createAsyncThunk(
+  '/auth/forgot-password',
+  async (email) => {
+    try {
+      let res = axiosInstance.post('/auth/reset', { email });
+
+      await toast.promise(res, {
+        loading: 'Loading...',
+        success: (data) => {
+          return data?.data?.message;
+        },
+        error: 'Failed to send verification email',
+      });
+      res = await res;
+      return res.data;
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    }
+  }
+);
+
+// function to handle reset password
+export const resetPassword = createAsyncThunk('/user/reset', async (data) => {
+  try {
+    let res = axiosInstance.post(`/auth/reset/${data.resetToken}`, {
+      password: data.password,
+    });
+
+    toast.promise(res, {
+      loading: 'Resetting password...',
+      success: (data) => {
+        return data?.data?.message;
+      },
+      error: 'Failed to reset password',
+    });
+    // getting response resolved here
+    res = await res;
+    return res.data;
+  } catch (error) {
+    toast.error(error?.response?.data?.message);
+  }
+});
+
+// create the auth slice with the provided initial state along with extra state
 const authSlice = createSlice({
   name: 'auth',
   initialState,
