@@ -3,7 +3,7 @@ import axiosInstance from '../Helper/axiosInstance';
 import toast from 'react-hot-toast';
 
 const initialState = {
-  productData: [],
+  productsData: [],
 };
 
 // get all product list
@@ -18,7 +18,7 @@ export const getAllProducts = createAsyncThunk('/product/get', async () => {
     });
 
     const response = await res;
-    return response.data.product;
+    return response?.data?.data?.products;
   } catch (error) {
     toast.error(error?.response?.data?.message);
   }
@@ -75,6 +75,27 @@ export const updateProduct = createAsyncThunk(
   }
 );
 
+// get product details
+export const getProductDetails = createAsyncThunk(
+  '/product/details',
+  async (id) => {
+    try {
+      const res = axiosInstance.get(`/product/product-detail/${id}`);
+
+      toast.promise(res, {
+        loading: 'Loading the product details...',
+        success: 'Product loaded successfully',
+        error: 'Failed to load the product details',
+      });
+      const response = await res;
+
+      return response?.data?.product;
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    }
+  }
+);
+
 /**
  * Create slice for the product
  */
@@ -85,7 +106,7 @@ const productSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getAllProducts.fulfilled, (state, action) => {
       if (action.payload) {
-        state.productData = [...action.payload];
+        state.productsData = [...action.payload];
       }
     });
   },

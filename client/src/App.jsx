@@ -10,6 +10,7 @@ import EditProfile from './Pages/User/EditProfile';
 import ChangePassword from './Pages/Password/ChangePassword';
 import RequireAuth from './Components/Auth/RequireAuth';
 import NotRequireAuth from './Components/Auth/NotRequireAuth';
+import ProductDetails from './Pages/Product/ProductDetails';
 
 function App() {
   return (
@@ -20,10 +21,13 @@ function App() {
         <Route path="/" element={<Home />} />
 
         {/* signUp and login  */}
+        {/* TODO:fix NotRequireAuth to add product */}
         <Route element={<NotRequireAuth />}>
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
         </Route>
+
+        <Route path="/product/:productId" element={<ProductDetails />} />
 
         {/* user data */}
         <Route element={<RequireAuth allowedRoles={['USER', 'ADMIN']} />}>

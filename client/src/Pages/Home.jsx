@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Layout } from '../Layout/Layout';
 import heroImage from '../assets/images/hero-image.png';
 import pizza from '../assets/images/pizz1.png';
@@ -7,8 +7,20 @@ import orderfood from '../assets/images/orderFood.png';
 import pickup from '../assets/images/pickup.png';
 import enjoy from '../assets/images/enjoy.png';
 import { scrollToSection } from '../Helper/smoothScroll';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllProducts } from '../Redux/ProductSlice';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
+  const dispatch = useDispatch();
+  const { productsData } = useSelector((state) => state.product);
+
+  useEffect(() => {
+    (async () => {
+      await dispatch(getAllProducts());
+    })();
+  }, []);
+
   return (
     <Layout>
       {/* hero section */}
@@ -79,19 +91,15 @@ const Home = () => {
             </p>
             <p className="w-40 px-4 py-2 text-center border hover:text-white hover:bg-yellow-500">
               {' '}
-              Classic Pizzas
+              Veg Pizza
             </p>
             <p className="w-40 px-4 py-2 text-center border hover:text-white hover:bg-yellow-500">
               {' '}
-              Specialty Pizzas{' '}
+              Non-Veg Pizza{' '}
             </p>
             <p className="w-40 px-4 py-2 text-center border hover:text-white hover:bg-yellow-500">
               {' '}
-              Custom Creation
-            </p>
-            <p className="w-40 px-4 py-2 text-center border hover:text-white hover:bg-yellow-500">
-              {' '}
-              Custom Creation
+              Drink
             </p>
           </div>
         </div>
@@ -99,109 +107,41 @@ const Home = () => {
         {/* pizza product  */}
         <div className="container mx-auto ">
           <div className="flex flex-wrap justify-center">
-            <div className="p-4 md:w-1/3">
-              <div className="overflow-hidden border rounded-lg border-opacity-60">
-                <img
-                  className="object-cover object-center w-full lg:h-48 md:h-36"
-                  src={pizza}
-                  alt="pizza image"
-                />
-                <div className="p-6 border">
-                  <h2 className="text-xs font-medium tracking-widest text-gray-400 title-font">
-                    CATEGORY
-                  </h2>
-                  <h1 className="text-lg font-medium text-gray-900 title-font ">
-                    The Catalyzer
-                  </h1>
-                  <p className="font-medium tracking-widest text-orange-600 text-md title-font">
-                    {' '}
-                    ₹ 99.99{' '}
-                  </p>
-                  <p className="leading-relaxed ">
-                    Photo booth fam kinfolk cold-pressed sriracha leggings
-                    jianbing microdosing tousled waistcoat.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="p-4 md:w-1/3">
-              <div className="overflow-hidden border rounded-lg border-opacity-60">
-                <img
-                  className="object-cover object-center w-full lg:h-48 md:h-36"
-                  src={pizza}
-                  alt="blog"
-                />
-                <div className="p-6 border">
-                  <h2 className="text-xs font-medium tracking-widest text-gray-400 title-font">
-                    CATEGORY
-                  </h2>
-                  <h1 className="text-lg font-medium text-gray-900 title-font ">
-                    The Catalyzer
-                  </h1>
-                  <p className="font-medium tracking-widest text-orange-600 text-md title-font">
-                    {' '}
-                    ₹ 99.99{' '}
-                  </p>
-                  <p className="leading-relaxed ">
-                    Photo booth fam kinfolk cold-pressed sriracha leggings
-                    jianbing microdosing tousled waistcoat.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="p-4 md:w-1/3">
-              <div className="overflow-hidden border rounded-lg border-opacity-60">
-                <img
-                  className="object-cover object-center w-full lg:h-48 md:h-36"
-                  src={pizza}
-                  alt="blog"
-                />
-                <div className="p-6 border">
-                  <h2 className="text-xs font-medium tracking-widest text-gray-400 title-font">
-                    CATEGORY
-                  </h2>
-                  <h1 className="text-lg font-medium text-gray-900 title-font ">
-                    The Catalyzer
-                  </h1>
-                  <p className="font-medium tracking-widest text-orange-600 text-md title-font">
-                    {' '}
-                    ₹ 99.99{' '}
-                  </p>
-                  <p className="leading-relaxed ">
-                    Photo booth fam kinfolk cold-pressed sriracha leggings
-                    jianbing microdosing tousled waistcoat.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="p-4 md:w-1/3">
-              <div className="overflow-hidden border rounded-lg border-opacity-60">
-                <img
-                  className="object-cover object-center w-full lg:h-48 md:h-36"
-                  src={pizza}
-                  alt="blog"
-                />
-                <div className="p-6 border">
-                  <h2 className="text-xs font-medium tracking-widest text-gray-400 title-font">
-                    CATEGORY
-                  </h2>
-                  <h1 className="text-lg font-medium text-gray-900 title-font ">
-                    The Catalyzer
-                  </h1>
-                  <p className="font-medium tracking-widest text-orange-600 text-md title-font">
-                    {' '}
-                    ₹ 99.99{' '}
-                  </p>
-                  <p className="leading-relaxed ">
-                    Photo booth fam kinfolk cold-pressed sriracha leggings
-                    jianbing microdosing tousled waistcoat.
-                  </p>
-                </div>
-              </div>
-            </div>
+            {productsData.map((items, key) => {
+              return (
+                items.inStock && (
+                  <div className="p-4 md:w-1/3" key={items._id}>
+                    <Link to={`/product/${items._id}`}>
+                      <div className="overflow-hidden border rounded-lg border-opacity-60">
+                        <img
+                          className="object-cover object-center w-full lg:h-48 md:h-36"
+                          src={
+                            items?.productImage?.url
+                              ? items.productImage.url
+                              : pizza
+                          }
+                          alt="pizza image"
+                        />
+                        <div className="p-6 border">
+                          <h2 className="text-xs font-medium tracking-widest text-gray-400 title-font">
+                            {items.category}
+                          </h2>
+                          <h1 className="text-lg font-medium text-gray-900 title-font ">
+                            {items.productName}
+                          </h1>
+                          <p className="font-medium tracking-widest text-orange-600 text-md title-font">
+                            ₹{items.price}
+                          </p>
+                          <p className="leading-relaxed ">
+                            {items.description}
+                          </p>
+                        </div>
+                      </div>
+                    </Link>
+                  </div>
+                )
+              );
+            })}
           </div>
 
           {/* more section */}
