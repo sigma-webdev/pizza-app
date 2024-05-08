@@ -11,6 +11,7 @@ import ChangePassword from './Pages/Password/ChangePassword';
 import RequireAuth from './Components/Auth/RequireAuth';
 import NotRequireAuth from './Components/Auth/NotRequireAuth';
 import ProductDetails from './Pages/Product/ProductDetails';
+import CartDetails from './Pages/Cart/CartDetails';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
           <Route path="/user/profile" element={<Profile />} />
           <Route path="/user/editprofile" element={<EditProfile />} />
           <Route path="/auth/change-password" element={<ChangePassword />} />
+          <Route path="/product/cart/:cartId" element={<CartDetails />} />
         </Route>
 
         {/* page not found */}

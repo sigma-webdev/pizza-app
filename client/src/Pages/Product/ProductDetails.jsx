@@ -4,11 +4,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getProductDetails } from '../../Redux/ProductSlice';
 import productImage from '../../assets/images/productDemo.jpg';
+import toast from 'react-hot-toast';
+import { addProductToCard } from '../../Redux/CartSlice';
+import { Link } from 'react-router-dom';
 
 const ProductDetails = () => {
   const { productId } = useParams();
+
   const dispatch = useDispatch();
   const [productDetails, setProductDetails] = useState();
+  const [isInCart, setIsInCart] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -16,6 +21,14 @@ const ProductDetails = () => {
       setProductDetails(details?.payload);
     })();
   }, []);
+
+  const handleCart = async () => {
+    const res = await dispatch(addProductToCard(productId));
+    console.log(res);
+    if (res?.meta?.requestStatus === 'fulfilled') {
+      setIsInCart(!isInCart);
+    }
+  };
 
   return (
     <Layout>
@@ -138,9 +151,23 @@ const ProductDetails = () => {
                 <span className="text-2xl font-medium text-gray-900 title-font">
                   ₹{productDetails?.price}
                 </span>
-                <button className="flex px-6 py-2 ml-auto text-white bg-yellow-500 border-0 rounded focus:outline-none hover:bg-yellow-600">
-                  Add to Cart
-                </button>
+                {isInCart ? (
+                  <button
+                    className="flex px-6 py-2 ml-auto text-white bg-yellow-500 border-0 rounded focus:outline-none hover:bg-yellow-600"
+                    onClick={''}
+                  >
+                    <Link to={`/product/cart/${productDetails?._id}`}>
+                      Added view Cart
+                    </Link>
+                  </button>
+                ) : (
+                  <button
+                    className="flex px-6 py-2 ml-auto text-white bg-yellow-500 border-0 rounded focus:outline-none hover:bg-yellow-600"
+                    onClick={handleCart}
+                  >
+                    Add to Cart
+                  </button>
+                )}
               </div>
             </div>
           </div>

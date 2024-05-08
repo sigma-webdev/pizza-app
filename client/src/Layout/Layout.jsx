@@ -3,7 +3,7 @@ import pizzaLogo from '../assets/images/pizzaLogo.png';
 import Footer from '../Components/Footer';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '../Redux/authSlice';
+import { logout } from '../Redux/AuthSlice';
 import { scrollToSection } from '../Helper/smoothScroll';
 
 export const Layout = ({ children }) => {
