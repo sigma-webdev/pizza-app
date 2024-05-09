@@ -164,3 +164,59 @@ export const deleteCart = asyncHandler(async (req, res, next) => {
     cart,
   });
 });
+
+/**
+ * updateCart
+ * @desc remove the product items of the cart
+ * @ROUTE @UPDATE {{URL}}/api/v1/car/:itemId
+ * @return update cart items
+ * @ACCESS private - user and admin
+ */
+export const removeItemFromCart = asyncHandler(async (req, res, next) => {
+  // getting the product item id
+  const { itemId } = req.params;
+  console.log(itemId);
+
+  // find the cart document for the logged-in user
+  const cart = await Cart.findOne({ user: req.user.id }).populate("items");
+
+  if (!cart) {
+    return next(new AppError("Cart not available", 404));
+  }
+
+  // check if item exist in the items array
+  let itemIndex = -1;
+  const items = cart.items;
+  let itemInCart = false;
+  itemInCart = items.some((item, index) => {
+    if (item._id == itemId) {
+      itemIndex = index;
+      return true;
+    }
+    return false;
+  });
+
+  // if items not available return false
+  if (!itemInCart) {
+    return next(new AppError("Items not available in cart", 404));
+  }
+
+  // get item price
+  const itemPrice = cart.items[itemIndex].price;
+
+  // remove item
+  cart.items.splice(itemIndex, 1);
+
+  // update the total price and quantity
+  cart.quantity--;
+  cart.totalPrice -= itemPrice;
+
+  // save the updated cart document back to the database
+  const updatedCart = await cart.save();
+
+  return res.status(200).json({
+    success: true,
+    message: "Item successfully removed from cart",
+    cart: updatedCart,
+  });
+});
