@@ -1,11 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Layout } from '../../Layout/Layout';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getProductDetails } from '../../Redux/ProductSlice';
 import productImage from '../../assets/images/productDemo.jpg';
-import toast from 'react-hot-toast';
-import { addProductToCard } from '../../Redux/CartSlice';
+import { addProductToCard, getCartDetails } from '../../Redux/CartSlice';
 import { Link } from 'react-router-dom';
 
 const ProductDetails = () => {
@@ -27,6 +26,7 @@ const ProductDetails = () => {
 
     if (res?.meta?.requestStatus === 'fulfilled') {
       setIsInCart(!isInCart);
+      await dispatch(getCartDetails());
     }
   };
 
@@ -38,7 +38,6 @@ const ProductDetails = () => {
             <img
               alt="ecommerce"
               className="object-cover object-center w-full h-64 rounded lg:w-1/2 lg:h-auto"
-              // src={}
               src={
                 productDetails?.productImage?.url
                   ? productDetails?.productImage?.url
@@ -156,9 +155,7 @@ const ProductDetails = () => {
                     className="flex px-6 py-2 ml-auto text-white bg-yellow-500 border-0 rounded focus:outline-none hover:bg-yellow-600"
                     onClick={''}
                   >
-                    <Link to={`/product/cart/${productDetails?._id}`}>
-                      Added view Cart
-                    </Link>
+                    <Link to={'/product/cart'}>Added view Cart</Link>
                   </button>
                 ) : (
                   <button

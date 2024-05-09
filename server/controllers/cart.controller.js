@@ -73,14 +73,35 @@ export const addToCart = asyncHandler(async (req, res, next) => {
  *
  */
 export const viewCart = asyncHandler(async (req, res, next) => {
+  // Find the cart
+  const cart = await Cart.findOne({ user: req.user.id }).populate("items");
+
+  // Check if the cart exists
+  if (!cart) {
+    return next(new AppError("Cart not available with the given cart ID", 404));
+  }
+
+  // Send response
+  res.status(200).json({
+    success: true,
+    cart,
+  });
+});
+
+/**
+ *
+ * @viewCartById
+ * @desc view any product cart by its id
+ * @ROUTE @POST {{URL}}/api/v1/cart/:cartId
+ * @return cart data
+ * @ACCESS private - admin only
+ *
+ */
+export const viewCartById = asyncHandler(async (req, res, next) => {
   const { cartId } = req.params;
 
-  // Determine query based on user role
-  const query =
-    req.user.role === "ADMIN" ? { _id: cartId } : { user: req.user.id };
-
   // Find the cart
-  const cart = await Cart.findOne(query).populate("items");
+  const cart = await Cart.findById(cartId);
 
   // Check if the cart exists
   if (!cart) {

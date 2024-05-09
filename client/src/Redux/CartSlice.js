@@ -3,7 +3,7 @@ import axiosInstance from '../Helper/axiosInstance';
 import toast from 'react-hot-toast';
 
 const initialState = {
-  cartsData: [],
+  cartsData: '',
 };
 
 // handle add to cart
@@ -27,25 +27,22 @@ export const addProductToCard = createAsyncThunk(
 );
 
 // get product cart details
-export const getCartDetails = createAsyncThunk(
-  '/cart/details',
-  async (cartId) => {
-    try {
-      const res = axiosInstance.get(`/cart/${cartId}`);
+export const getCartDetails = createAsyncThunk('/cart/details', async () => {
+  try {
+    const res = axiosInstance.get(`/cart`);
 
-      toast.promise(res, {
-        loading: 'Loading the cart details...',
-        success: 'Cart details loaded successfully',
-        error: 'Failed to the Cart details',
-      });
-      const response = await res;
-      console.log(response);
-      return response?.data?.cart;
-    } catch (error) {
-      toast.error(error?.response?.data?.message);
-    }
+    toast.promise(res, {
+      loading: 'Loading the cart details...',
+      success: 'Cart details loaded successfully',
+      error: 'Failed to the Cart details',
+    });
+    const response = await res;
+    console.log(response);
+    return response?.data?.cart;
+  } catch (error) {
+    toast.error(error?.response?.data?.message);
   }
-);
+});
 
 /**
  * Create slice for the cart
@@ -57,7 +54,7 @@ const cartSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(getCartDetails.fulfilled, (state, action) => {
       if (action.payload) {
-        state.cartsData = [action.payload];
+        state.cartsData = action.payload;
       }
     });
   },

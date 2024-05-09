@@ -35,7 +35,7 @@ function App() {
           <Route path="/user/profile" element={<Profile />} />
           <Route path="/user/editprofile" element={<EditProfile />} />
           <Route path="/auth/change-password" element={<ChangePassword />} />
-          <Route path="/product/cart/:cartId" element={<CartDetails />} />
+          <Route path="/product/cart" element={<CartDetails />} />
         </Route>
 
         {/* page not found */}

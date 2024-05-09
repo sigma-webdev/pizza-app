@@ -8,6 +8,7 @@ import {
   listAllCart,
   removeItemFromCart,
   viewCart,
+  viewCartById,
 } from "../controllers/cart.controller.js";
 const cartRoute = express.Router();
 
@@ -23,12 +24,8 @@ cartRoute.post(
 cartRoute.get("/lists", isLoggedIn, authorizeRoles("ADMIN"), listAllCart);
 
 // view cart details
-cartRoute.get(
-  "/:cartId",
-  isLoggedIn,
-  authorizeRoles("USER", "ADMIN"),
-  viewCart
-);
+cartRoute.get("/", isLoggedIn, authorizeRoles("USER", "ADMIN"), viewCart);
+cartRoute.get("/:cartId", isLoggedIn, authorizeRoles("ADMIN"), viewCartById);
 
 // clear cart
 cartRoute.put("/", isLoggedIn, authorizeRoles("USER"), clearCart);
