@@ -8,14 +8,13 @@ const CartDetails = () => {
   const [isInCart, setIsInCart] = useState(true);
   const dispatch = useDispatch();
   const [cartDetails, setCartDetails] = useState();
-  console.log();
 
   useEffect(() => {
     (async () => {
       const details = await dispatch(getCartDetails());
       setCartDetails(details?.payload);
     })();
-  }, [isInCart]);
+  }, [isInCart, dispatch]);
 
   const handleRemove = async (productId) => {
     const res = await dispatch(removeFromCart(productId));
@@ -54,7 +53,7 @@ const CartDetails = () => {
                           <p> ₹{item?.price} </p>
 
                           <div className="flex items-center gap-4">
-                            {isInCart && (
+                            {item._id && (
                               <button
                                 type="button"
                                 onClick={() => handleRemove(item._id)}
@@ -126,7 +125,7 @@ const CartDetails = () => {
                   </div>
                   {cartDetails?.items.length > 0 && (
                     <Link
-                      to={'/order/checkout'}
+                      to={'/order'}
                       className="flex justify-center text-white bg-yellow-400 border border-yellow-500 rounded-md hover:bg-yellow-700"
                     >
                       Proceed to Checkout

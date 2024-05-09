@@ -12,6 +12,8 @@ import RequireAuth from './Components/Auth/RequireAuth';
 import NotRequireAuth from './Components/Auth/NotRequireAuth';
 import ProductDetails from './Pages/Product/ProductDetails';
 import CartDetails from './Pages/Cart/CartDetails';
+import Order from './Pages/Order/Order';
+import OrderSuccess from './Pages/Order/OrderSuccess';
 
 function App() {
   return (
@@ -36,6 +38,8 @@ function App() {
           <Route path="/user/editprofile" element={<EditProfile />} />
           <Route path="/auth/change-password" element={<ChangePassword />} />
           <Route path="/product/cart" element={<CartDetails />} />
+          <Route path="/order" element={<Order />} />
+          <Route path="/order/success" element={<OrderSuccess />} />
         </Route>
 
         {/* page not found */}
