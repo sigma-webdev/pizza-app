@@ -9,56 +9,16 @@ import toast from 'react-hot-toast';
 const CartDetails = () => {
   const { cartId } = useParams();
   const dispatch = useDispatch();
-  const [cartDetails, setCartDetails] = useState(null);
-  const [cartItems, setCartItems] = useState([]);
+  const [cartDetails, setCartDetails] = useState();
 
   useEffect(() => {
-    // get cart data ....
-    const fetchCartData = async () => {
-      try {
-        const detailsResponse = await dispatch(getCartDetails(cartId));
-        const cartDetailsData = detailsResponse?.payload;
-        setCartDetails(cartDetailsData);
-      } catch (error) {
-        toast.error('Not able to fetch card details!');
-      }
-    };
+    (async () => {
+      const details = await dispatch(getCartDetails(cartId));
+      setCartDetails(details?.payload);
+    })();
+  }, []);
 
-    if (cartId) {
-      fetchCartData();
-    }
-  }, [cartId, dispatch]);
-
-  // get the item product details
-  useEffect(() => {
-    const fetchProductDetails = async () => {
-      if (cartDetails && cartDetails.items) {
-        const itemsData = [];
-
-        for (const item of cartDetails.items) {
-          try {
-            const productResponse = await dispatch(getProductDetails(item));
-            const productData = productResponse.payload;
-
-            // Accumulate product details in itemsData array
-            itemsData.push(productData);
-          } catch (error) {
-            console.error('Error fetching product details:', error);
-            // Handle error (e.g., continue with next item or display error message)
-          }
-        }
-
-        // Update cartItems state with accumulated product details
-        setCartItems(itemsData);
-      }
-    };
-
-    if (cartDetails) {
-      fetchProductDetails();
-    }
-  }, [cartDetails, dispatch]);
-
-  console.log(cartItems);
+  console.log(cartDetails);
 
   return (
     <Layout>
@@ -71,7 +31,7 @@ const CartDetails = () => {
           <div className="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8 ">
             <div className="flex-none w-full mx-auto lg:max-w-2xl xl:max-w-4xl">
               <div className="space-y-6">
-                {cartItems.map((item) => (
+                {cartDetails?.items.map((item) => (
                   <div className="p-4 text-gray-900 rounded-lg shadow-sm bg-gradient-to-r from-amber-50 to-orange-300 md:p-6">
                     <div className="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
                       <a href="#" className="shrink-0 md:order-1">
@@ -141,14 +101,14 @@ const CartDetails = () => {
 
                     <dl className="flex items-center justify-between gap-4">
                       <dt className="text-base font-normal ">Tax</dt>
-                      <dd className="text-base font-medium ">₹ 99</dd>
+                      <dd className="text-base font-medium ">₹ 89</dd>
                     </dl>
                   </div>
 
                   <dl className="flex items-center justify-between gap-4 pt-2 border-t border-gray-200 dark:border-gray-700">
                     <dt className="text-base font-bold ">Total</dt>
                     <dd className="text-base font-bold ">
-                      {cartDetails?.totalPrice + 99}
+                      {cartDetails?.totalPrice + 89}
                     </dd>
                   </dl>
                 </div>
