@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { login } from '../Redux/authSlice';
+import { login } from '../Redux/AuthSlice';
 
 const Login = () => {
   const navigate = useNavigate();

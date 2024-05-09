@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import { Layout } from '../../Layout/Layout';
-import { changePassword } from '../../Redux/authSlice';
+import { changePassword } from '../../Redux/AuthSlice';
 import toast from 'react-hot-toast';
 
 const ChangePassword = () => {

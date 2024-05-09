@@ -24,7 +24,7 @@ const ProductDetails = () => {
 
   const handleCart = async () => {
     const res = await dispatch(addProductToCard(productId));
-    console.log(res);
+
     if (res?.meta?.requestStatus === 'fulfilled') {
       setIsInCart(!isInCart);
     }

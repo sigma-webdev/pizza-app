@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Layout } from '../../Layout/Layout';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserData, updateProfile } from '../../Redux/authSlice';
+import { getUserData, updateProfile } from '../../Redux/AuthSlice';
 import { useNavigate } from 'react-router-dom';
 
 const EditProfile = () => {
