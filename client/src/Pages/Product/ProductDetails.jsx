@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Layout } from '../../Layout/Layout';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getProductDetails } from '../../Redux/ProductSlice';
 import productImage from '../../assets/images/productDemo.jpg';
-import { addProductToCard, getCartDetails } from '../../Redux/CartSlice';
-import { Link } from 'react-router-dom';
+import {
+  addProductToCard,
+  getCartDetails,
+  removeFromCart,
+} from '../../Redux/CartSlice';
 
 const ProductDetails = () => {
   const { productId } = useParams();
@@ -13,20 +16,44 @@ const ProductDetails = () => {
   const dispatch = useDispatch();
   const [productDetails, setProductDetails] = useState();
   const [isInCart, setIsInCart] = useState(false);
+  const { cartsData } = useSelector((state) => state?.cart);
 
   useEffect(() => {
     (async () => {
       const details = await dispatch(getProductDetails(productId));
       setProductDetails(details?.payload);
+
+      // also fetch cart to check its already present
+      await dispatch(getCartDetails());
+      checkProductPresent(productId);
     })();
-  }, []);
+  }, [isInCart]);
 
   const handleCart = async () => {
     const res = await dispatch(addProductToCard(productId));
 
     if (res?.meta?.requestStatus === 'fulfilled') {
-      setIsInCart(!isInCart);
       await dispatch(getCartDetails());
+      setIsInCart(true);
+    }
+  };
+
+  const handleRemove = async (productId) => {
+    const res = await dispatch(removeFromCart(productId));
+
+    if (res?.meta?.requestStatus === 'fulfilled') {
+      await dispatch(getCartDetails());
+      setIsInCart(false);
+    }
+  };
+
+  const checkProductPresent = (productId) => {
+    const temp = cartsData?.items?.some((item) => item._id == productId);
+
+    if (temp) {
+      setIsInCart(true);
+    } else {
+      setIsInCart(false);
     }
   };
 
@@ -153,9 +180,9 @@ const ProductDetails = () => {
                 {isInCart ? (
                   <button
                     className="flex px-6 py-2 ml-auto text-white bg-yellow-500 border-0 rounded focus:outline-none hover:bg-yellow-600"
-                    onClick={''}
+                    onClick={() => handleRemove(productId)}
                   >
-                    <Link to={'/product/cart'}>Added view Cart</Link>
+                    Remove from cart
                   </button>
                 ) : (
                   <button

@@ -37,12 +37,28 @@ export const getCartDetails = createAsyncThunk('/cart/details', async () => {
       error: 'Failed to the Cart details',
     });
     const response = await res;
-    console.log(response);
     return response?.data?.cart;
   } catch (error) {
     toast.error(error?.response?.data?.message);
   }
 });
+
+// remove from cart
+export const removeFromCart = createAsyncThunk(
+  '/cart/remove',
+  async (itemId) => {
+    try {
+      const res = axiosInstance.put(`/cart/${itemId}`);
+      toast.promise(res, {
+        loading: 'Removing product item...',
+        success: 'Product updated..',
+        error: 'Failed to remove product item',
+      });
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    }
+  }
+);
 
 /**
  * Create slice for the cart

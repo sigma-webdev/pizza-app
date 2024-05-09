@@ -35,7 +35,6 @@ export const Layout = ({ children }) => {
       await dispatch(getCartDetails());
     })();
   }, []);
-  console.log(cartsData?.quantity);
 
   return (
     <div>

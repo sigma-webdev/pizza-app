@@ -132,7 +132,7 @@ const Home = () => {
                           <p className="font-medium tracking-widest text-orange-600 text-md title-font">
                             ₹{items.price}
                           </p>
-                          <p className="leading-relaxed ">
+                          <p className="leading-relaxed truncate ">
                             {items.description}
                           </p>
                         </div>
