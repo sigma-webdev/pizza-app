@@ -36,7 +36,12 @@ orderRoute.delete(
 );
 
 // update order only admin
-orderRoute.put("/:orderId", isLoggedIn, authorizeRoles("ADMIN"), updateOrder);
+orderRoute.put(
+  "/:orderId",
+  isLoggedIn,
+  authorizeRoles("USER", "ADMIN"),
+  updateOrder
+);
 orderRoute.get("/", isLoggedIn, authorizeRoles("USER"), getUserOrders);
 
 export default orderRoute;
