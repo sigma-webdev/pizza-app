@@ -57,7 +57,7 @@ export const createOrder = asyncHandler(async (req, res, next) => {
 /**
  * @listAllOrders
  * @desc    list all the users product order
- * @route   GET /api/v1/orders/
+ * @route   GET /api/v1/orders/all
  * @access  Private - admin
  */
 export const listAllOrders = asyncHandler(async (req, res, next) => {
@@ -90,6 +90,9 @@ export const deleteOrder = asyncHandler(async (req, res, next) => {
   if (!order) {
     return next(new AppError("Order with the given ID is not available", 404));
   }
+  // reset price to zero
+  order.totalPrice = 0;
+  await order.save();
 
   return res.status(200).json({
     success: true,
@@ -175,6 +178,31 @@ export const updateOrder = asyncHandler(async (req, res, next) => {
   res.status(200).json({
     success: true,
     message: "Order updated successfully",
+    order,
+  });
+});
+
+/**
+ * @getUserOrders
+ * @desc    get all the available orders  for a particular user.
+ * @route   get /api/v1/order/
+ * @return  all the available orders of a user
+ * @access  Private - user
+ */
+
+export const getUserOrders = asyncHandler(async (req, res, next) => {
+  const userId = req.user.id;
+  console.log(userId);
+
+  // make sure the user have cart items
+  const order = await Order.find({ userId }).populate("items");
+  if (!order) {
+    return next(new AppError("Order not available  ", 404));
+  }
+
+  res.status(200).json({
+    success: true,
+    message: "Order fetch successfully",
     order,
   });
 });
