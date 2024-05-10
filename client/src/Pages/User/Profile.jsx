@@ -47,13 +47,22 @@ const Profile = () => {
             </p>
 
             <div className="flex items-center justify-center gap-4 ">
-              <Link
-                to={'orders'}
-                className="p-1 text-center text-white bg-yellow-500 border rounded-md w-28 hover:bg-yellow-600"
-              >
-                {' '}
-                <button> View Orders </button>
-              </Link>
+              {userData?.role == 'USER' ? (
+                <Link
+                  to={'/product/my-order'}
+                  className="p-1 text-center text-white bg-yellow-500 border rounded-md w-28 hover:bg-yellow-600"
+                >
+                  <button> View Orders </button>
+                </Link>
+              ) : (
+                <Link
+                  to={'orders'}
+                  className="p-1 text-center text-white bg-yellow-500 border rounded-md w-28 hover:bg-yellow-600"
+                >
+                  <button> Admin dashboard </button>
+                </Link>
+              )}
+
               <Link
                 to={'/user/editprofile'}
                 className="p-1 text-center text-white bg-yellow-500 border rounded-md w-28 hover:bg-yellow-600"

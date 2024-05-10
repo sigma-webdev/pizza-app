@@ -10,8 +10,6 @@ const initialState = {
 export const placeOrder = createAsyncThunk(
   'cart/placeOrder',
   async ({ cartId, detail }) => {
-    console.log(detail);
-    console.log(cartId);
     try {
       const res = axiosInstance.post(`/order/cart/${cartId}`, detail);
 
@@ -22,9 +20,8 @@ export const placeOrder = createAsyncThunk(
       });
 
       const response = await res;
-      console.log(response);
 
-      return response?.data?.order; // Return the order from the response data
+      return response?.data?.order;
     } catch (error) {
       toast.error(
         error?.response?.data?.message || 'Failed to place the order'
@@ -33,6 +30,68 @@ export const placeOrder = createAsyncThunk(
   }
 );
 
+// handle individual order details
+export const getOrderDetails = createAsyncThunk(
+  '/product/order',
+  async (orderId) => {
+    try {
+      const res = axiosInstance.get(`order/${orderId}`);
+      toast.promise(res, {
+        loading: 'Loading the order details...',
+        success: 'Order details loaded successfully',
+        error: 'Failed to load the Cart details',
+      });
+
+      const response = await res;
+      return response?.data?.order;
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    }
+  }
+);
+
+// handle all the available orders of a particular user
+export const loggedInUserOrder = createAsyncThunk(
+  '/product/order',
+  async () => {
+    try {
+      const res = axiosInstance.get(`/order`);
+      toast.promise(res, {
+        loading: 'Loading the order details...',
+        success: 'Order details loaded successfully',
+        error: 'Failed to load the Cart details',
+      });
+
+      const response = await res;
+
+      return response?.data?.order;
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    }
+  }
+);
+
+// handle all the available orders of a particular user
+export const cancelOrder = createAsyncThunk(
+  '/product/order/cancel',
+  async ({ id, status }) => {
+    try {
+      const res = axiosInstance.put(`/order/${id}`, { status });
+
+      toast.promise(res, {
+        loading: 'Cancelling the order...',
+        success: 'Order cancelled  successfully',
+        error: 'Failed to cancel the order ',
+      });
+
+      const response = await res;
+      console.log(response);
+      return res?.data?.order;
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    }
+  }
+);
 /**
  * Create slice for the order
  */

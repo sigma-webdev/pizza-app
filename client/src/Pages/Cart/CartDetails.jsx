@@ -104,13 +104,6 @@ const CartDetails = () => {
                           {cartDetails?.totalPrice}
                         </dd>
                       </dl>
-
-                      <dl className="flex items-center justify-between gap-4">
-                        <dt className="text-base font-normal ">Tax</dt>
-                        <dd className="text-base font-medium ">
-                          {cartDetails?.items.length === 0 ? '' : '89'}
-                        </dd>
-                      </dl>
                     </div>
 
                     <dl className="flex items-center justify-between gap-4 pt-2 border-t border-gray-200 dark:border-gray-700">
@@ -119,7 +112,7 @@ const CartDetails = () => {
                         ₹
                         {cartDetails?.items.length === 0
                           ? ''
-                          : cartDetails?.totalPrice + 89}
+                          : cartDetails?.totalPrice}
                       </dd>
                     </dl>
                   </div>

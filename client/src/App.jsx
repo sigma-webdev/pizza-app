@@ -14,6 +14,7 @@ import ProductDetails from './Pages/Product/ProductDetails';
 import CartDetails from './Pages/Cart/CartDetails';
 import Order from './Pages/Order/Order';
 import OrderSuccess from './Pages/Order/OrderSuccess';
+import ViewOrder from './Pages/Order/ViewOrder';
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
           <Route path="/product/cart" element={<CartDetails />} />
           <Route path="/order" element={<Order />} />
           <Route path="/order/success" element={<OrderSuccess />} />
+          <Route path="/product/my-order" element={<ViewOrder />} />
         </Route>
 
         {/* page not found */}
