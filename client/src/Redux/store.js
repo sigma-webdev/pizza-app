@@ -3,6 +3,7 @@ import authSliceReducer from '../Redux/AuthSlice';
 import ProductSlice from './ProductSlice';
 import CartSlice from './CartSlice';
 import OrderSlice from './OrderSlice';
+import AdminSlice from './AdminSlice';
 
 export const store = configureStore({
   reducer: {
@@ -10,5 +11,6 @@ export const store = configureStore({
     product: ProductSlice,
     cart: CartSlice,
     order: OrderSlice,
+    adminData: AdminSlice,
   },
 });

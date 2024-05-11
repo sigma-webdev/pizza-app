@@ -3,15 +3,38 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllProducts } from '../../Redux/ProductSlice';
 import { Layout } from '../../Layout/Layout';
 
+import { getAllOrders, getAllUsers } from '../../Redux/AdminSlice';
+
 const DashBoard = () => {
   const dispatch = useDispatch();
   const { productsData } = useSelector((state) => state?.product);
+  const usersData = useSelector((state) => state?.adminData);
+  const { ordersData } = useSelector((state) => state?.adminData);
+  const [toggle, setToggle] = useState('products');
   useEffect(() => {
     (async () => {
       await dispatch(getAllProducts({ limitValue: '', categoryValue: '' }));
     })();
-  }, [dispatch]);
-  console.log(productsData);
+  }, [toggle, dispatch]);
+
+  const handleGetAllUser = async () => {
+    const res = await dispatch(getAllUsers());
+    if (res.payload) {
+      setToggle('users');
+    }
+  };
+  const handleViewProducts = () => {
+    setToggle('products');
+  };
+
+  const handleViewAllOrders = async () => {
+    const res = await dispatch(getAllOrders());
+
+    if (res.payload) {
+      setToggle('orders');
+    }
+  };
+
   return (
     <Layout>
       <section className="p-3 bg-gradient-to-r from-amber-50 to-orange-300 sm:p-5">
@@ -41,9 +64,16 @@ const DashBoard = () => {
                 </button>
                 <div className="flex items-center w-full space-x-3 md:w-auto">
                   <button
-                    data-dropdown-toggle="actionsDropdown"
                     className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-gray-100 "
                     type="button"
+                    onClick={handleViewProducts}
+                  >
+                    View Products
+                  </button>
+                  <button
+                    className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-gray-100 "
+                    type="button"
+                    onClick={handleGetAllUser}
                   >
                     View Users
                   </button>
@@ -53,138 +83,155 @@ const DashBoard = () => {
                     data-dropdown-toggle="filterDropdown"
                     className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 "
                     type="button"
+                    onClick={handleViewAllOrders}
                   >
                     View Orders
                   </button>
-                  <div
-                    id="filterDropdown"
-                    className="z-10 hidden w-48 p-3 bg-white rounded-lg shadow dark:bg-gray-700"
-                  >
-                    <h6 className="mb-3 text-sm font-medium text-gray-900 dark:text-white">
-                      Choose brand
-                    </h6>
-                    <ul
-                      className="space-y-2 text-sm"
-                      aria-labelledby="filterDropdownButton"
-                    >
-                      <li className="flex items-center">
-                        <input
-                          id="apple"
-                          type="checkbox"
-                          value=""
-                          className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                        />
-                        <label
-                          htmlFor="apple"
-                          className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100"
-                        >
-                          Apple (56)
-                        </label>
-                      </li>
-                      <li className="flex items-center">
-                        <input
-                          type="checkbox"
-                          value=""
-                          className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                        />
-                        <label
-                          htmlFor="fitbit"
-                          className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100"
-                        >
-                          Microsoft (16)
-                        </label>
-                      </li>
-                      <li className="flex items-center">
-                        <input
-                          id="razor"
-                          type="checkbox"
-                          value=""
-                          className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                        />
-                        <label
-                          htmlFor="razor"
-                          className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100"
-                        >
-                          Razor (49)
-                        </label>
-                      </li>
-                      <li className="flex items-center">
-                        <input
-                          id="nikon"
-                          type="checkbox"
-                          value=""
-                          className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                        />
-                        <label
-                          htmlFor="nikon"
-                          className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100"
-                        >
-                          Nikon (12)
-                        </label>
-                      </li>
-                      <li className="flex items-center">
-                        <input
-                          id="benq"
-                          type="checkbox"
-                          value=""
-                          className="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                        />
-                        <label
-                          htmlFor="benq"
-                          className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100"
-                        >
-                          BenQ (74)
-                        </label>
-                      </li>
-                    </ul>
-                  </div>
                 </div>
               </div>
             </div>
             <div className="overflow-x-auto">
-              <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-yellow-500 dark:text-white">
-                  <tr>
-                    <th scope="col" className="px-4 py-3">
-                      Product name
-                    </th>
-                    <th scope="col" className="px-4 py-3">
-                      Category
-                    </th>
-                    <th scope="col" className="px-4 py-3">
-                      In Stock
-                    </th>
-                    <th scope="col" className="px-4 py-3">
-                      Unit Price
-                    </th>
-                    <th scope="col" className="px-4 py-3"></th>
-                    <th scope="col" className="px-4 py-3"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {productsData.map((item, key) => (
-                    <tr key={key} className="border-b dark:border-gray-300">
-                      <th
-                        scope="row"
-                        className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap "
-                      >
-                        {item.productName}
+              {/* product list */}
+              {toggle === 'products' && productsData && (
+                <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                  <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-yellow-500 dark:text-white">
+                    <tr>
+                      <th scope="col" className="px-4 py-3">
+                        Product name
                       </th>
-                      <td className="px-4 py-3">{item.category}</td>
-                      <td className="px-4 py-3">{item.quantity}</td>
-                      <td className="px-4 py-3">{item.price}</td>
-                      <td className="px-4 py-3 cursor-pointer hover:text-yellow-600">
-                        {' '}
-                        update Product
-                      </td>
-                      <td className="px-4 py-3 cursor-pointer hover:text-red-500">
-                        {' '}
-                        Delete Product
-                      </td>
+                      <th scope="col" className="px-4 py-3">
+                        Category
+                      </th>
+                      <th scope="col" className="px-4 py-3">
+                        In Stock
+                      </th>
+                      <th scope="col" className="px-4 py-3">
+                        Unit Price
+                      </th>
+                      <th scope="col" className="px-4 py-3"></th>
+                      <th scope="col" className="px-4 py-3"></th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {productsData.map((item, key) => (
+                      <tr key={key} className="border-b dark:border-gray-300">
+                        <th
+                          scope="row"
+                          className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap "
+                        >
+                          {item.productName}
+                        </th>
+                        <td className="px-4 py-3">{item.category}</td>
+                        <td className="px-4 py-3">{item.quantity}</td>
+                        <td className="px-4 py-3">{item.price}</td>
+                        <td className="px-4 py-3 cursor-pointer hover:text-yellow-600">
+                          {' '}
+                          update Product
+                        </td>
+                        <td className="px-4 py-3 cursor-pointer hover:text-red-500">
+                          {' '}
+                          Delete Product
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+
+              {/* users data */}
+              {toggle === 'users' && usersData && (
+                <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                  <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-yellow-500 dark:text-white">
+                    <tr>
+                      <th scope="col" className="px-4 py-3">
+                        First Name
+                      </th>
+                      <th scope="col" className="px-4 py-3">
+                        Email
+                      </th>
+                      <th scope="col" className="px-4 py-3">
+                        Mobile Number
+                      </th>
+                      <th scope="col" className="px-4 py-3">
+                        Role
+                      </th>
+                      <th scope="col" className="px-4 py-3"></th>
+                      <th scope="col" className="px-4 py-3"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {usersData?.allUsers.map((item, key) => (
+                      <tr key={key} className="border-b dark:border-gray-300">
+                        <th
+                          scope="row"
+                          className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap "
+                        >
+                          {item.firstName}
+                        </th>
+                        <td className="px-4 py-3">{item.email}</td>
+                        <td className="px-4 py-3">{item.mobileNumber}</td>
+                        <td className="px-4 py-3">{item.role}</td>
+                        <td className="px-4 py-3 cursor-pointer hover:text-yellow-600">
+                          {' '}
+                          update User
+                        </td>
+                        <td className="px-4 py-3 cursor-pointer hover:text-red-500">
+                          {' '}
+                          Delete User
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
+
+              {/* ordes list */}
+
+              {toggle === 'orders' && usersData?.allOrders && (
+                <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                  <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-yellow-500 dark:text-white">
+                    <tr>
+                      <th scope="col" className="px-4 py-3">
+                        Order Id
+                      </th>
+                      <th scope="col" className="px-4 py-3">
+                        payment Method
+                      </th>
+                      <th scope="col" className="px-4 py-3">
+                        Address
+                      </th>
+                      <th scope="col" className="px-4 py-3">
+                        Status
+                      </th>
+                      <th scope="col" className="px-4 py-3"></th>
+                      <th scope="col" className="px-4 py-3"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {usersData?.allOrders.map((item, key) => (
+                      <tr key={key} className="border-b dark:border-gray-300">
+                        <th
+                          scope="row"
+                          className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap "
+                        >
+                          {item._id}
+                        </th>
+                        <td className="px-4 py-3">{item.paymentMethod}</td>
+                        <td className="px-4 py-3">{item.address}</td>
+                        <td className="px-4 py-3">{item.status}</td>
+                        <td className="px-4 py-3 cursor-pointer hover:text-yellow-600">
+                          {' '}
+                          update User
+                        </td>
+                        <td className="px-4 py-3 cursor-pointer hover:text-red-500">
+                          {' '}
+                          Delete User
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
             </div>
           </div>
         </div>

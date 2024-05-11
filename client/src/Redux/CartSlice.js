@@ -13,15 +13,15 @@ export const addProductToCard = createAsyncThunk(
     try {
       const res = axiosInstance.post(`/cart/product/${productId}`);
 
-      toast.promise(res, {
-        loading: 'Adding the product to cart',
-        success: 'Product added successfully',
-        error: 'Failed to add Product to Cart',
-      });
+      // toast.promise(res, {
+      //   loading: 'Adding the product to cart',
+      //   success: 'Product added successfully',
+      //   error: 'Failed to add Product to Cart',
+      // });
       const response = await res;
       return response?.data?.cart;
     } catch (error) {
-      toast.error(error?.response?.data?.message);
+      // toast.error(error?.response?.data?.message);
     }
   }
 );
