@@ -10,7 +10,6 @@ const initialState = {
 export const getAllProducts = createAsyncThunk(
   '/product/get',
   async ({ limitValue, categoryValue }) => {
-    console.log(limitValue, categoryValue);
     try {
       const res = axiosInstance.get(
         `/product/list-all-product/?limit=${limitValue}&category=${categoryValue}`
