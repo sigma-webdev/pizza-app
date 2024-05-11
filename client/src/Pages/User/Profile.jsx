@@ -55,6 +55,15 @@ const Profile = () => {
                 </Link>
               )}
 
+              {userData?.role == 'ADMIN' && (
+                <Link
+                  to={'/admin'}
+                  className="p-1 text-center text-white bg-yellow-500 border rounded-md w-28 hover:bg-yellow-600"
+                >
+                  <button> Dashboard </button>
+                </Link>
+              )}
+
               <Link
                 to={'/user/editprofile'}
                 className="p-1 text-center text-white bg-yellow-500 border rounded-md w-28 hover:bg-yellow-600"

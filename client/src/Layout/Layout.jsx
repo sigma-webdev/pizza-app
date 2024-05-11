@@ -90,19 +90,14 @@ export const Layout = ({ children }) => {
               )}
             </li>
 
-            {isLoggedIn &&
-              (isLoggedIn && role === 'ADMIN' ? (
-                <li className="hover:text-[#FF9110]">
-                  <Link to={'/admin'}> Admin </Link>
-                </li>
-              ) : (
-                <li className="hover:text-[#FF9110]">
-                  {/* TODO: check the path */}
-                  <Link to={'/user/profile'}> Profile </Link>
-                </li>
-              ))}
+            {isLoggedIn && (
+              <li className="hover:text-[#FF9110]">
+                {/* TODO: check the path */}
+                <Link to={'/user/profile'}> Profile </Link>
+              </li>
+            )}
 
-            <div className=" relative">
+            <div className="relative ">
               <Link to={'/product/cart'}>
                 <svg
                   width="25"
