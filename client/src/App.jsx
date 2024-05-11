@@ -15,6 +15,7 @@ import CartDetails from './Pages/Cart/CartDetails';
 import Order from './Pages/Order/Order';
 import OrderSuccess from './Pages/Order/OrderSuccess';
 import ViewOrder from './Pages/Order/ViewOrder';
+import DashBoard from './Pages/Admin/DashBoard';
 
 function App() {
   return (
@@ -42,6 +43,10 @@ function App() {
           <Route path="/order" element={<Order />} />
           <Route path="/order/success" element={<OrderSuccess />} />
           <Route path="/product/my-order" element={<ViewOrder />} />
+        </Route>
+
+        <Route element={<RequireAuth allowedRoles={['ADMIN']} />}>
+          <Route path="/admin" element={<DashBoard />} />
         </Route>
 
         {/* page not found */}

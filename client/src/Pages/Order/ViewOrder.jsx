@@ -42,31 +42,31 @@ const ViewOrder = () => {
       {orders.length > 0 ? (
         <section className="text-gray-600 body-font">
           <div className="container px-5 py-10 mx-auto">
-            <div className="flex flex-col text-center w-full mb-20">
-              <h1 className="sm:text-4xl text-3xl font-medium title-font  text-gray-900">
+            <div className="flex flex-col w-full mb-20 text-center">
+              <h1 className="text-3xl font-medium text-gray-900 sm:text-4xl title-font">
                 My Orders
               </h1>
             </div>
             {orders.map((orderItem, key) => (
-              <div className=" border " key={key}>
-                <div className="lg:w-2/3 w-full mx-auto overflow-auto">
+              <div className="border " key={key}>
+                <div className="w-full mx-auto overflow-auto lg:w-2/3">
                   <p className="mt-10"> Placed Order No. 00{key + 1}</p>
-                  <table className="table-auto w-full text-left whitespace-no-wrap">
+                  <table className="w-full text-left whitespace-no-wrap table-auto">
                     <thead>
                       <tr>
-                        <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl rounded-bl">
+                        <th className="px-4 py-3 text-sm font-medium tracking-wider text-gray-900 bg-gray-100 rounded-tl rounded-bl title-font">
                           item no.
                         </th>
-                        <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                        <th className="px-4 py-3 text-sm font-medium tracking-wider text-gray-900 bg-gray-100 title-font">
                           Product Name
                         </th>
-                        <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                        <th className="px-4 py-3 text-sm font-medium tracking-wider text-gray-900 bg-gray-100 title-font">
                           Category
                         </th>
-                        <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
-                          Price
+                        <th className="px-4 py-3 text-sm font-medium tracking-wider text-gray-900 bg-gray-100 title-font">
+                          Address
                         </th>
-                        <th className="w-10 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tr rounded-br">
+                        <th className="w-10 text-sm font-medium tracking-wider text-gray-900 bg-gray-100 rounded-tr rounded-br title-font">
                           Status
                         </th>
                       </tr>
@@ -76,10 +76,13 @@ const ViewOrder = () => {
                         <tr key={key}>
                           <td className="px-4 py-3">{key + 1}</td>
                           <td className="px-4 py-3">{item?.productName}</td>
-                          <td className="px-4 py-3">{item?.category}</td>
                           <td className="px-4 py-3 text-lg text-gray-900">
                             {item?.price}
                           </td>
+                          <td className="px-4 py-3 truncate">
+                            {orderItem?.address}
+                          </td>
+
                           <td className="w-10 text-center">
                             {orderItem?.status}
                           </td>
@@ -88,7 +91,7 @@ const ViewOrder = () => {
                     </tbody>
                   </table>
                 </div>
-                <div className="flex justify-between mt-4 lg:w-2/3 w-full mx-auto">
+                <div className="flex justify-between w-full mx-auto mt-4 lg:w-2/3">
                   {/* pass order id */}
                   {orderItem.status == 'CANCELLED' ? (
                     <p className="py-2 text-yellow-600">
@@ -98,13 +101,13 @@ const ViewOrder = () => {
                   ) : (
                     <button
                       onClick={() => handleOrderCancel(orderItem._id)}
-                      className="flex  text-white bg-yellow-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded mb-4"
+                      className="flex px-6 py-2 mb-4 text-white bg-yellow-500 border-0 rounded focus:outline-none hover:bg-red-600"
                     >
                       Cancel Order
                     </button>
                   )}
 
-                  <p className="text-yellow-500 inline-flex items-center md:mb-2 lg:mb-0 font-medium">
+                  <p className="inline-flex items-center font-medium text-yellow-500 md:mb-2 lg:mb-0">
                     Total amount - {orderItem.totalPrice}
                   </p>
                 </div>

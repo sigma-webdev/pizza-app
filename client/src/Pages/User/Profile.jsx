@@ -12,7 +12,6 @@ const Profile = () => {
       <section className="py-5 2xl:py-5">
         <div className="flex items-center justify-center gap-8 py-5 2xl:py-32">
           <div className="overflow-hidden border rounded-full w-36 h-36 ">
-            {/* TODO: fix sometimes secure_url or url */}
             {userData?.avatar?.url ? (
               <img
                 src={userData?.avatar?.url}
@@ -47,19 +46,12 @@ const Profile = () => {
             </p>
 
             <div className="flex items-center justify-center gap-4 ">
-              {userData?.role == 'USER' ? (
+              {userData?.role == 'USER' && (
                 <Link
                   to={'/product/my-order'}
                   className="p-1 text-center text-white bg-yellow-500 border rounded-md w-28 hover:bg-yellow-600"
                 >
                   <button> View Orders </button>
-                </Link>
-              ) : (
-                <Link
-                  to={'orders'}
-                  className="p-1 text-center text-white bg-yellow-500 border rounded-md w-28 hover:bg-yellow-600"
-                >
-                  <button> Admin dashboard </button>
                 </Link>
               )}
 

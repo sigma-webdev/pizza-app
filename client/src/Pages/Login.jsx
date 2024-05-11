@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { login } from '../Redux/AuthSlice';
+import toast from 'react-hot-toast';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -25,24 +26,17 @@ const Login = () => {
   // function to login
   const handleLogin = async (event) => {
     event.preventDefault();
-
-    // checking the empty fields
-    // TODO: dynamic field
     if (!loginData.email || !loginData.password) {
       toast.error('Please fill all the fields');
       return;
     }
 
-    // calling login action
     const res = await dispatch(login(loginData));
-    console.log(res);
 
-    // redirect to home page if true
     if (res?.payload?.success) {
       navigate('/');
     }
-
-    // clearing the login inputs
+    // Clear login inputs
     setLoginData({
       email: '',
       password: '',
