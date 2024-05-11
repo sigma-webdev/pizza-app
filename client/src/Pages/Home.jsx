@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Layout } from '../Layout/Layout';
 import heroImage from '../assets/images/hero-image.png';
 import pizza from '../assets/images/pizz1.png';
@@ -10,16 +10,45 @@ import { scrollToSection } from '../Helper/smoothScroll';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllProducts } from '../Redux/ProductSlice';
 import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const Home = () => {
+  const [limit, setLimit] = useState(3);
+  const [category, setCategory] = useState('');
+  const [activeCat, setActiveCat] = useState();
   const dispatch = useDispatch();
   const { productsData } = useSelector((state) => state.product);
 
   useEffect(() => {
     (async () => {
-      await dispatch(getAllProducts());
+      await dispatch(
+        getAllProducts({ limitValue: limit, categoryValue: category })
+      );
     })();
-  }, []);
+  }, [limit, category, dispatch]);
+
+  // loading more product with 3 more
+  const loadMore = () => {
+    setLimit((prev) => prev + 3);
+  };
+
+  // switch cat
+  const handleSwitchCat = (cat) => {
+    switch (cat) {
+      case 'veg':
+        setCategory('veg');
+        break;
+      case 'non-veg':
+        setCategory('non-veg');
+        break;
+      case 'drink':
+        setCategory('drink');
+        break;
+      default:
+        setCategory('');
+        break;
+    }
+  };
 
   return (
     <Layout>
@@ -85,19 +114,31 @@ const Home = () => {
 
           {/* categories */}
           <div className="flex justify-center py-4">
-            <p className="w-40 px-4 py-2 text-center border hover:text-white hover:bg-yellow-500">
+            <p
+              className={`w-40 px-4 py-2 text-center border hover:text-white hover:bg-yellow-500 ${category == '' ? 'bg-yellow-500' : ''}`}
+              onClick={() => handleSwitchCat('')}
+            >
               {' '}
               All{' '}
             </p>
-            <p className="w-40 px-4 py-2 text-center border hover:text-white hover:bg-yellow-500">
+            <p
+              className={`w-40 px-4 py-2 text-center border hover:text-white hover:bg-yellow-500 ${category == 'veg' ? 'bg-yellow-500' : ''}`}
+              onClick={() => handleSwitchCat('veg')}
+            >
               {' '}
               Veg Pizza
             </p>
-            <p className="w-40 px-4 py-2 text-center border hover:text-white hover:bg-yellow-500">
+            <p
+              className={`w-40 px-4 py-2 text-center border hover:text-white hover:bg-yellow-500 ${category == 'non-veg' ? 'bg-yellow-500' : ''}`}
+              onClick={() => handleSwitchCat('non-veg')}
+            >
               {' '}
               Non-Veg Pizza{' '}
             </p>
-            <p className="w-40 px-4 py-2 text-center border hover:text-white hover:bg-yellow-500">
+            <p
+              className={`w-40 px-4 py-2 text-center border hover:text-white hover:bg-yellow-500 ${category == 'drink' ? 'bg-yellow-500' : ''}`}
+              onClick={() => handleSwitchCat('drink')}
+            >
               {' '}
               Drink
             </p>
@@ -132,7 +173,7 @@ const Home = () => {
                           <p className="font-medium tracking-widest text-orange-600 text-md title-font">
                             ₹{items.price}
                           </p>
-                          <p className="leading-relaxed truncate   ">
+                          <p className="leading-relaxed truncate ">
                             {items.description}
                           </p>
                         </div>
@@ -146,7 +187,10 @@ const Home = () => {
 
           {/* more section */}
           <div className="flex justify-center py-4">
-            <a className="inline-flex items-center mx-auto text-yellow-500 md:mb-2 lg:mb-0 group">
+            <p
+              className="inline-flex items-center mx-auto text-yellow-500 cursor-pointer md:mb-2 lg:mb-0 group"
+              onClick={loadMore}
+            >
               More
               <svg
                 className="w-4 h-4 ml-2 transition-transform ease-in-out transform group-hover:translate-x-2"
@@ -160,7 +204,7 @@ const Home = () => {
                 <path d="M5 12h14"></path>
                 <path d="M12 5l7 7-7 7"></path>
               </svg>
-            </a>
+            </p>
           </div>
         </div>
       </section>

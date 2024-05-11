@@ -7,22 +7,28 @@ const initialState = {
 };
 
 // get all product list
-export const getAllProducts = createAsyncThunk('/product/get', async () => {
-  try {
-    const res = axiosInstance.get('/product/list-all-product');
+export const getAllProducts = createAsyncThunk(
+  '/product/get',
+  async ({ limitValue, categoryValue }) => {
+    console.log(limitValue, categoryValue);
+    try {
+      const res = axiosInstance.get(
+        `/product/list-all-product/?limit=${limitValue}&category=${categoryValue}`
+      );
 
-    toast.promise(res, {
-      loading: 'Loading the product data ...',
-      success: 'Product Loaded successfully',
-      error: 'Failed to get product',
-    });
+      toast.promise(res, {
+        loading: 'Loading the product data ...',
+        success: 'Product Loaded successfully',
+        error: 'Failed to get product',
+      });
 
-    const response = await res;
-    return response?.data?.data?.products;
-  } catch (error) {
-    toast.error(error?.response?.data?.message);
+      const response = await res;
+      return response?.data?.data?.products;
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    }
   }
-});
+);
 
 // create or add a new product
 export const createNewProduct = createAsyncThunk(
