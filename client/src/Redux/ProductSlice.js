@@ -32,16 +32,18 @@ export const getAllProducts = createAsyncThunk(
 // create or add a new product
 export const createNewProduct = createAsyncThunk(
   '/product/add',
-  async (data) => {
+  async (productFormData) => {
+    console.log(productFormData);
     try {
-      const res = axiosInstance.post('/product', data);
+      const res = axiosInstance.post('/product', productFormData);
       toast.promise(res, {
         loading: 'Creating the new product...',
         success: 'Product added successfully',
         error: 'Failed to add/create course',
       });
       const response = await res;
-      return response.data;
+      console.log(response.data);
+      return response?.data;
     } catch (error) {
       toast.error(error?.response?.data?.message);
     }

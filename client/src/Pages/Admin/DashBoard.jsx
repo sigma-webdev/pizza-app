@@ -4,6 +4,7 @@ import { getAllProducts } from '../../Redux/ProductSlice';
 import { Layout } from '../../Layout/Layout';
 
 import { getAllOrders, getAllUsers } from '../../Redux/AdminSlice';
+import { Link } from 'react-router-dom';
 
 const DashBoard = () => {
   const dispatch = useDispatch();
@@ -43,8 +44,8 @@ const DashBoard = () => {
             <div className="flex flex-col items-center justify-between p-4 space-y-3 md:flex-row md:space-y-0 md:space-x-4">
               <h3 className="text-2xl font-bold"> Admin Dashboard </h3>
               <div className="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center md:space-x-3">
-                <button
-                  type="button"
+                <Link
+                  to={'/admin/add-product'}
                   className="flex items-center justify-center px-4 py-2 text-sm font-medium border rounded-lg hover:bg-yellow-500 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
                 >
                   <svg
@@ -61,7 +62,7 @@ const DashBoard = () => {
                     />
                   </svg>
                   Add product
-                </button>
+                </Link>
                 <div className="flex items-center w-full space-x-3 md:w-auto">
                   <button
                     className={`flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900  border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-gray-100 ${toggle == 'products' ? 'bg-yellow-500 text-white' : 'bg-white'} hover:bg-yellow-500 border`}
