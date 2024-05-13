@@ -45,7 +45,7 @@ const DashBoard = () => {
               <div className="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center md:space-x-3">
                 <button
                   type="button"
-                  className="flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-yellow-500 border rounded-lg hover:bg-yellow-600 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
+                  className="flex items-center justify-center px-4 py-2 text-sm font-medium border rounded-lg hover:bg-yellow-500 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800"
                 >
                   <svg
                     className="h-3.5 w-3.5 mr-2"
@@ -64,14 +64,14 @@ const DashBoard = () => {
                 </button>
                 <div className="flex items-center w-full space-x-3 md:w-auto">
                   <button
-                    className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-gray-100 "
+                    className={`flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900  border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-gray-100 ${toggle == 'products' ? 'bg-yellow-500 text-white' : 'bg-white'} hover:bg-yellow-500 border`}
                     type="button"
                     onClick={handleViewProducts}
                   >
                     View Products
                   </button>
                   <button
-                    className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-gray-100 "
+                    className={`flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900  border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-gray-100 ${toggle == 'users' ? 'bg-yellow-500 text-white' : 'bg-white'} hover:bg-yellow-500 border`}
                     type="button"
                     onClick={handleGetAllUser}
                   >
@@ -81,7 +81,7 @@ const DashBoard = () => {
                   <button
                     id="filterDropdownButton"
                     data-dropdown-toggle="filterDropdown"
-                    className="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 "
+                    className={`flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900  border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-gray-100 ${toggle == 'orders' ? 'bg-yellow-500 text-white' : 'bg-white'} hover:bg-yellow-500 border`}
                     type="button"
                     onClick={handleViewAllOrders}
                   >
@@ -221,11 +221,11 @@ const DashBoard = () => {
                         <td className="px-4 py-3">{item.status}</td>
                         <td className="px-4 py-3 cursor-pointer hover:text-yellow-600">
                           {' '}
-                          update User
+                          Update Order
                         </td>
                         <td className="px-4 py-3 cursor-pointer hover:text-red-500">
                           {' '}
-                          Delete User
+                          Delete Order
                         </td>
                       </tr>
                     ))}
