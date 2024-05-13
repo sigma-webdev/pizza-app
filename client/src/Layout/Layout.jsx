@@ -32,7 +32,10 @@ export const Layout = ({ children }) => {
 
   useEffect(() => {
     (async () => {
-      await dispatch(getCartDetails());
+      // TODO: login with different user and check
+      if (role == 'USER') {
+        await dispatch(getCartDetails());
+      }
     })();
   }, []);
 
