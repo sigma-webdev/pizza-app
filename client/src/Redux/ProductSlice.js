@@ -52,13 +52,16 @@ export const createNewProduct = createAsyncThunk(
 
 // delete or remove the product
 export const deleteProduct = createAsyncThunk('/product/delete', async (id) => {
+  console.log(id);
   try {
-    const res = axiosInstance.delete(`/product/${id}`);
+    const res = axiosInstance.delete(`/product/delete-product/${id}`);
     toast.promise(res, {
       loading: 'Deleting/removing the product...',
       success: 'Product deleted/remove successfully',
-      error: 'Failed to delete/remove course',
+      error: 'Failed to delete/remove product',
     });
+    const response = await res;
+    return response?.data;
   } catch (error) {
     toast.error(error?.response?.data?.message);
   }

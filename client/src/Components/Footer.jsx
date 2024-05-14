@@ -8,7 +8,7 @@ const Footer = () => {
         <div className="bg-gradient-to-r from-amber-50 to-orange-300">
           <div className="container flex flex-col flex-wrap px-5 py-10 mx-auto sm:flex-row">
             <p className="text-sm text-center text-gray-500 sm:text-left">
-              © 2024 Tailblocks —
+              © 2024 PW Skills —
               <a
                 href="https://twitter.com/knyttneve"
                 rel="noopener noreferrer"

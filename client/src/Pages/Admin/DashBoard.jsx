@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllProducts } from '../../Redux/ProductSlice';
+import { deleteProduct, getAllProducts } from '../../Redux/ProductSlice';
 import { Layout } from '../../Layout/Layout';
 
 import { getAllOrders, getAllUsers } from '../../Redux/AdminSlice';
@@ -33,6 +33,19 @@ const DashBoard = () => {
 
     if (res.payload) {
       setToggle('orders');
+    }
+  };
+
+  // handle product delete
+  const handleProductDelete = async (id) => {
+    const confirmed = window.confirm(
+      'Are your you want to delete this Product ?'
+    );
+    if (confirmed) {
+      const res = await dispatch(deleteProduct(id));
+      if (res.payload) {
+        await dispatch(getAllProducts({ limitValue: '', categoryValue: '' }));
+      }
     }
   };
 
@@ -130,7 +143,10 @@ const DashBoard = () => {
                             Update Product
                           </Link>
                         </td>
-                        <td className="px-4 py-3 cursor-pointer hover:text-red-500">
+                        <td
+                          className="px-4 py-3 cursor-pointer hover:text-red-500"
+                          onClick={() => handleProductDelete(item._id)}
+                        >
                           {' '}
                           Delete Product
                         </td>
