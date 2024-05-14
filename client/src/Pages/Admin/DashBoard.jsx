@@ -237,13 +237,14 @@ const DashBoard = () => {
                         <td className="px-4 py-3">{item.paymentMethod}</td>
                         <td className="px-4 py-3">{item.address}</td>
                         <td className="px-4 py-3">{item.status}</td>
-                        <td className="px-4 py-3 cursor-pointer hover:text-yellow-600">
-                          {' '}
-                          Update Order
-                        </td>
                         <td className="px-4 py-3 cursor-pointer hover:text-red-500">
                           {' '}
-                          Delete Order
+                          Total price - ₹{item?.totalPrice}/-
+                        </td>
+                        <td className="px-4 py-3 cursor-pointer hover:text-yellow-600">
+                          <Link to={`/admin/update-order/${item?._id}`}>
+                            Update Order
+                          </Link>
                         </td>
                       </tr>
                     ))}
