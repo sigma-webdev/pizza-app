@@ -126,8 +126,9 @@ const DashBoard = () => {
                         <td className="px-4 py-3">{item.quantity}</td>
                         <td className="px-4 py-3">{item.price}</td>
                         <td className="px-4 py-3 cursor-pointer hover:text-yellow-600">
-                          {' '}
-                          update Product
+                          <Link to={`/admin/edit-product/${item?._id}`}>
+                            Update Product
+                          </Link>
                         </td>
                         <td className="px-4 py-3 cursor-pointer hover:text-red-500">
                           {' '}

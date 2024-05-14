@@ -17,6 +17,7 @@ import OrderSuccess from './Pages/Order/OrderSuccess';
 import ViewOrder from './Pages/Order/ViewOrder';
 import DashBoard from './Pages/Admin/DashBoard';
 import AddProduct from './Pages/Admin/AddProduct';
+import EditProduct from './Pages/Admin/EditProduct';
 
 function App() {
   return (
@@ -49,6 +50,7 @@ function App() {
         <Route element={<RequireAuth allowedRoles={['ADMIN']} />}>
           <Route path="/admin" element={<DashBoard />} />
           <Route path="/admin/add-product" element={<AddProduct />} />
+          <Route path="/admin/edit-product/:id" element={<EditProduct />} />
         </Route>
 
         {/* page not found */}

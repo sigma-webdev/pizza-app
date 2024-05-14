@@ -67,15 +67,22 @@ export const deleteProduct = createAsyncThunk('/product/delete', async (id) => {
 // update the product details
 export const updateProduct = createAsyncThunk(
   '/course/update',
-  async (data) => {
+  async ({ id, productFormData }) => {
+    console.log(id, productFormData);
     try {
-      const res = axiosInstance.put(`/product/update-product/${data.id}`);
+      const res = axiosInstance.put(
+        `/product/update-product/${id}`,
+        productFormData
+      );
 
       toast.promise(res, {
         loading: 'Updating the product...',
         success: 'Product updated successfully',
         error: 'Failed to update product',
       });
+      const response = await res;
+
+      return response?.data;
     } catch (error) {
       toast.error(error?.response?.data?.message);
     }
