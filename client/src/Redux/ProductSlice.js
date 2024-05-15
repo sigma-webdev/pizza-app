@@ -71,7 +71,6 @@ export const deleteProduct = createAsyncThunk('/product/delete', async (id) => {
 export const updateProduct = createAsyncThunk(
   '/course/update',
   async ({ id, productFormData }) => {
-    console.log(id, productFormData);
     try {
       const res = axiosInstance.put(
         `/product/update-product/${id}`,

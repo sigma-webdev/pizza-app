@@ -85,8 +85,29 @@ export const cancelOrder = createAsyncThunk(
       });
 
       const response = await res;
-      console.log(response);
+
       return res?.data?.order;
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    }
+  }
+);
+
+// handle all the available orders of a particular user
+export const updateOrder = createAsyncThunk(
+  '/product/order',
+  async ({ id, formOrder }) => {
+    try {
+      const res = axiosInstance.put(`/order/${id}`, formOrder);
+      toast.promise(res, {
+        loading: 'Loading the order details...',
+        success: 'Order details loaded successfully',
+        error: 'Failed to load the Cart details',
+      });
+
+      const response = await res;
+
+      return response?.data?.order;
     } catch (error) {
       toast.error(error?.response?.data?.message);
     }

@@ -2,18 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { Layout } from '../../Layout/Layout';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getOrderDetails } from '../../Redux/OrderSlice';
+import { getOrderDetails, updateOrder } from '../../Redux/OrderSlice';
 
 const UpdateOrder = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
-  console.log(id);
 
   const [formOrder, setFormOrder] = useState({
     address: '',
     paymentMethod: '',
     totalPrice: '',
+    status: '',
   });
 
   const [orderData, setOrderData] = useState();
@@ -30,40 +30,44 @@ const UpdateOrder = () => {
   useEffect(() => {
     // Populate form fields when orderData is updated
     if (orderData) {
-      setOrderData({
-        address: formOrder?.address || '',
-        paymentMethod: formOrder?.paymentMethod || '',
-        totalPrice: formOrder?.totalPrice || '',
+      setFormOrder({
+        address: orderData?.address || '',
+        paymentMethod: orderData?.paymentMethod || '',
+        totalPrice: orderData?.totalPrice || '',
+        status: orderData?.status,
       });
     }
-  }, []);
+  }, [orderData]);
 
   //   change the value and the data
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormProduct((prevData) => ({ ...prevData, [name]: value }));
+    setFormOrder((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  //   const productDataSubmission = async (e) => {
-  //     e.preventDefault();
+  //   submission form handle
+  const updateOrderSubmission = async (e) => {
+    e.preventDefault();
 
-  //     // call the dispatch function to upload the product data
-  //     const res = await dispatch(updateProduct({ id, productFormData }));
-  //     // navigate to admin dashboard
-  //     if (res?.payload) {
-  //       navigate('/admin');
-  //     }
-  //   };
+    // call the dispatch function to upload the product data
+    const res = await dispatch(updateOrder({ id, formOrder }));
+    // navigate to admin dashboard
+    if (res.payload) {
+      navigate('/admin');
+    }
+  };
 
-  console.log(orderData);
   return (
     <Layout>
       <section className="py-12 ">
-        <form className="max-w-md mx-auto mt-8 bg-white p-7 ">
+        <form
+          className="max-w-md mx-auto mt-8 bg-white p-7 "
+          onSubmit={updateOrderSubmission}
+        >
           <h2 className="mb-4 text-2xl font-semibold">
             Update Product order details
           </h2>
-          {/* <form onSubmit={productDataSubmission}> */}
+
           <div className="mb-4">
             <p className="block text-sm font-medium text-gray-700">
               Product Order Id -
@@ -80,7 +84,7 @@ const UpdateOrder = () => {
             <textarea
               id="address"
               name="address"
-              value={orderData?.address}
+              value={formOrder.address}
               minLength={5}
               maxLength={60}
               onChange={handleInputChange}
@@ -93,14 +97,30 @@ const UpdateOrder = () => {
             <select
               className="p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               onChange={handleInputChange}
-              name="category"
-              value={orderData?.paymentMethod}
+              name="paymentMethod"
+              value={formOrder?.paymentMethod}
             >
               <option value="" className="bg-yellow-500">
                 Select option
               </option>
               <option value="ONLINE">ONLINE PAYMENT</option>
               <option value="OFFLINE">OFFLINE PAYMENT</option>
+            </select>
+          </div>
+          <div className="flex flex-col mb-4">
+            <label className="mb-2 ">Select status:</label>
+            <select
+              className="p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              onChange={handleInputChange}
+              name="status"
+              value={formOrder?.status}
+            >
+              <option className="bg-yellow-500">Select option</option>
+              <option value="ORDERED">ORDERED</option>
+              <option value="PROCESSING">PROCESSING</option>
+              <option value="SHIPPED">SHIPPED</option>
+              <option value="DELIVERED">DELIVERED</option>
+              <option value="CANCELLED">CANCELLED</option>
             </select>
           </div>
           <div className="mb-4">
