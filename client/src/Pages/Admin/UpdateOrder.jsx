@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Layout } from '../../Layout/Layout';
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getOrderDetails, updateOrder } from '../../Redux/OrderSlice';
+import {
+  deleteOrder,
+  getOrderDetails,
+  updateOrder,
+} from '../../Redux/OrderSlice';
 
 const UpdateOrder = () => {
   const dispatch = useDispatch();
@@ -57,6 +61,17 @@ const UpdateOrder = () => {
     }
   };
 
+  const handleDelete = async (id) => {
+    const confirm = window.confirm('Are you sure you want to delete it');
+
+    if (confirm) {
+      const res = await dispatch(deleteOrder(id));
+      if (res.payload) {
+        navigate('/admin');
+      }
+    }
+  };
+
   return (
     <Layout>
       <section className="py-12 ">
@@ -68,9 +83,16 @@ const UpdateOrder = () => {
             Update Product order details
           </h2>
 
-          <div className="mb-4">
-            <p className="block text-sm font-medium text-gray-700">
-              Product Order Id -
+          <div className="flex justify-between mb-4">
+            <p className="block text-sm font-medium text-gray-700 ">
+              Order Id - {orderData?._id}
+            </p>
+            <p
+              onClick={() => handleDelete(orderData?._id)}
+              className="px-1 text-red-500 border rounded-md cursor-pointer hover:shadow-md"
+            >
+              {' '}
+              Delete order
             </p>
           </div>
           <div className="mb-4">
