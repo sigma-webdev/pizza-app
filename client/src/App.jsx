@@ -20,6 +20,8 @@ import AddProduct from './Pages/Admin/AddProduct';
 import EditProduct from './Pages/Admin/EditProduct';
 import UpdateOrder from './Pages/Admin/UpdateOrder';
 import EditUser from './Pages/Admin/EditUser';
+import ForgetPassword from './Pages/ForgetPassword';
+import ResetPassword from './Pages/Password/ResetPassword';
 
 function App() {
   return (
@@ -29,14 +31,14 @@ function App() {
         <Route path="/denied" element={<Denied />} />
         <Route path="/" element={<Home />} />
 
-        {/* signUp and login  */}
-        {/* TODO:fix NotRequireAuth to add product */}
+        {/* signUp, login, product details  */}
         <Route element={<NotRequireAuth />}>
+          <Route path="/product/:productId" element={<ProductDetails />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/forget-password" element={<ForgetPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
         </Route>
-
-        <Route path="/product/:productId" element={<ProductDetails />} />
 
         {/* user data */}
         <Route element={<RequireAuth allowedRoles={['USER', 'ADMIN']} />}>

@@ -46,7 +46,7 @@ const Login = () => {
     <>
       <section className="text-gray-600 body-font">
         <div className="container flex flex-wrap items-center h-screen px-10 py-10 mx-auto">
-          <div className="pr-0 lg:w-3/5 md:w-1/2 md:pr-16 lg:pr-0">
+          <div className="hidden p-0 lg:w-3/5 md:w-1/2 md:pr-16 lg:pr-0 md:block">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               data-name="Layer 1"
@@ -236,8 +236,7 @@ const Login = () => {
               Login
             </button>
             <p className="mt-3 text-xs text-gray-500">
-              {/* TODO: add to link */}
-              <Link> Forget Password ?</Link>
+              <Link to={'/forget-password'}> Forget Password ?</Link>
             </p>
             <p className="mt-3 text-xs text-gray-500">
               Don't have account ?

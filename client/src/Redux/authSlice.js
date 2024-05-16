@@ -127,11 +127,12 @@ export const changePassword = createAsyncThunk(
 export const forgetPassword = createAsyncThunk(
   '/auth/forgot-password',
   async (email) => {
+    console.log(email);
     try {
       let res = axiosInstance.post('/auth/reset', { email });
 
       await toast.promise(res, {
-        loading: 'Loading...',
+        loading: 'Sending verification mail',
         success: (data) => {
           return data?.data?.message;
         },
@@ -146,26 +147,28 @@ export const forgetPassword = createAsyncThunk(
 );
 
 // function to handle reset password
-export const resetPassword = createAsyncThunk('/user/reset', async (data) => {
-  try {
-    let res = axiosInstance.post(`/auth/reset/${data.resetToken}`, {
-      password: data.password,
-    });
+export const resetPassword = createAsyncThunk(
+  '/user/reset',
+  async ({ token, password }) => {
+    console.log(token, password);
+    try {
+      let res = axiosInstance.post(`/auth/reset/${token}`, { password });
 
-    toast.promise(res, {
-      loading: 'Resetting password...',
-      success: (data) => {
-        return data?.data?.message;
-      },
-      error: 'Failed to reset password',
-    });
-    // getting response resolved here
-    res = await res;
-    return res.data;
-  } catch (error) {
-    toast.error(error?.response?.data?.message);
+      toast.promise(res, {
+        loading: 'Resetting password...',
+        success: (data) => {
+          return data?.data?.message;
+        },
+        error: 'Failed to reset password',
+      });
+      // getting response resolved here
+      res = await res;
+      return res.data;
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    }
   }
-});
+);
 
 // create the auth slice with the provided initial state along with extra state
 const authSlice = createSlice({
