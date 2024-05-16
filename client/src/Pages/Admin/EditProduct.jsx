@@ -38,7 +38,7 @@ const EditProduct = () => {
         description: productsData.description || '',
         price: productsData.price || '',
         category: productsData.category || '',
-        quantity: productsData.quantity || '',
+        quantity: productsData.quantity || 0,
         inStock: productsData.inStock || true,
       });
     }
