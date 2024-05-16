@@ -35,7 +35,6 @@ export const registerUser = asyncHandler(async (req, res, next) => {
     return next(new AppError("Email already exist", 409));
   }
 
-  console.log("user", req.user);
   // create new user data object
   const user = await User.create({
     firstName,
