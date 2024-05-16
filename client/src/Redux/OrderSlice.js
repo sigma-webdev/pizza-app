@@ -59,14 +59,14 @@ export const loggedInUserOrder = createAsyncThunk(
       toast.promise(res, {
         loading: 'Loading the order details...',
         success: 'Order details loaded successfully',
-        error: 'Failed to load the Cart details',
+        error: 'Cart empty',
       });
 
       const response = await res;
 
       return response?.data?.order;
     } catch (error) {
-      toast.error(error?.response?.data?.message);
+      toast.info('Card empty');
     }
   }
 );
@@ -86,7 +86,7 @@ export const cancelOrder = createAsyncThunk(
 
       const response = await res;
 
-      return res?.data?.order;
+      return response?.data?.order;
     } catch (error) {
       toast.error(error?.response?.data?.message);
     }

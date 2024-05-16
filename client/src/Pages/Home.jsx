@@ -10,12 +10,11 @@ import { scrollToSection } from '../Helper/smoothScroll';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllProducts } from '../Redux/ProductSlice';
 import { Link } from 'react-router-dom';
-import toast from 'react-hot-toast';
 
 const Home = () => {
   const [limit, setLimit] = useState(3);
   const [category, setCategory] = useState('');
-  const [activeCat, setActiveCat] = useState();
+
   const dispatch = useDispatch();
   const { productsData } = useSelector((state) => state.product);
 
@@ -214,11 +213,8 @@ const Home = () => {
         id="services-section"
         className="py-4 mt-6 bg-gradient-to-r from-amber-50 to-orange-300"
       >
-        <div class="container flex flex-col md:flex-row">
-          <div
-            class="lg:w-1/2 rounded-lg  flex
-           justify-center items-center flex-col"
-          >
+        <div className="container flex flex-col md:flex-row">
+          <div className="flex flex-col items-center justify-center rounded-lg lg:w-1/2">
             <img
               alt="feature"
               className="rounded-xl"
@@ -240,104 +236,104 @@ const Home = () => {
               </div>
             </div>
 
-            <div class="p-1  w-full ">
-              <div class=" rounded flex p-2 h-full items-center text-2xl">
+            <div className="w-full p-1 ">
+              <div className="flex items-center h-full p-2 text-2xl rounded ">
                 <svg
                   fill="none"
                   stroke="currentColor"
                   strokeLinecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="3"
-                  class="text-[#F38339] w-10 h-10 flex-shrink-0 mr-4"
+                  strokeLinejoin="round"
+                  strokeWidth="3"
+                  className="text-[#F38339] w-10 h-10 flex-shrink-0 mr-4"
                   viewBox="0 0 24 24"
                 >
                   <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
                   <path d="M22 4L12 14.01l-3-3"></path>
                 </svg>
-                <span class="title-font font-bold">Perfect Taste</span>
+                <span className="font-bold title-font">Perfect Taste</span>
               </div>
             </div>
-            <div class="p-1  w-full ">
-              <div class=" rounded flex p-2 h-full items-center text-2xl">
+            <div className="w-full p-1 ">
+              <div className="flex items-center h-full p-2 text-2xl rounded ">
                 <svg
                   fill="none"
                   stroke="currentColor"
                   strokeLinecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="3"
-                  class="text-[#F38339] w-10 h-10 flex-shrink-0 mr-4"
+                  strokeLinejoin="round"
+                  strokeWidth="3"
+                  className="text-[#F38339] w-10 h-10 flex-shrink-0 mr-4"
                   viewBox="0 0 24 24"
                 >
                   <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
                   <path d="M22 4L12 14.01l-3-3"></path>
                 </svg>
-                <span class="title-font font-bold">Done Quickly</span>
+                <span className="font-bold title-font">Done Quickly</span>
               </div>
             </div>
-            <div class="p-1  w-full ">
-              <div class=" rounded flex p-2 h-full items-center text-2xl">
+            <div className="w-full p-1 ">
+              <div className="flex items-center h-full p-2 text-2xl rounded ">
                 <svg
                   fill="none"
                   stroke="currentColor"
                   strokeLinecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="3"
-                  class="text-[#F38339] w-10 h-10 flex-shrink-0 mr-4"
+                  strokeLinejoin="round"
+                  strokeWidth="3"
+                  className="text-[#F38339] w-10 h-10 flex-shrink-0 mr-4"
                   viewBox="0 0 24 24"
                 >
                   <path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path>
                   <path d="M22 4L12 14.01l-3-3"></path>
                 </svg>
-                <span class="title-font font-bold">
+                <span className="font-bold title-font">
                   {' '}
                   Food Guaranteed Hygienic
                 </span>
               </div>
             </div>
 
-            <div class="container px-5 py-4 mx-auto">
-              <div class="flex justify-center py-4">
-                <div class="w-16 h-1 rounded-full bg-yellow-500 inline-flex"></div>
+            <div className="container px-5 py-4 mx-auto">
+              <div className="flex justify-center py-4">
+                <div className="inline-flex w-16 h-1 bg-yellow-500 rounded-full"></div>
               </div>
 
-              <div class="flex flex-wrap  md:space-y-0 space-y-6">
-                <div class="p-4 md:w-1/3 flex flex-col text-center items-center">
-                  <div class="w-20 h-20 inline-flex items-center justify-center rounded-full bg-yellow-100 text-yellow-500 mb-5 flex-shrink-0">
+              <div className="flex flex-wrap space-y-6 md:space-y-0">
+                <div className="flex flex-col items-center p-4 text-center md:w-1/3">
+                  <div className="inline-flex items-center justify-center flex-shrink-0 w-20 h-20 mb-5 text-yellow-500 bg-yellow-100 rounded-full">
                     <img src={orderfood} alt="Order food" />
                   </div>
-                  <div class="flex-grow">
-                    <h2 class="text-gray-900 text-lg title-font font-medium mb-3">
+                  <div className="flex-grow">
+                    <h2 className="mb-3 text-lg font-medium text-gray-900 title-font">
                       Order Food!
                     </h2>
-                    <p class="leading-relaxed text-base">
+                    <p className="text-base leading-relaxed">
                       As easy as never ever before ! Now with our advanced
                       stuff, ordering food it’s a piece of cake !
                     </p>
                   </div>
                 </div>
-                <div class="p-4 md:w-1/3 flex flex-col text-center items-center">
-                  <div class="w-20 h-20 inline-flex items-center justify-center rounded-full bg-yellow-100 text-yellow-500 mb-5 flex-shrink-0">
+                <div className="flex flex-col items-center p-4 text-center md:w-1/3">
+                  <div className="inline-flex items-center justify-center flex-shrink-0 w-20 h-20 mb-5 text-yellow-500 bg-yellow-100 rounded-full">
                     <img src={pickup} alt="pickup" />
                   </div>
-                  <div class="flex-grow">
-                    <h2 class="text-gray-900 text-lg title-font font-medium mb-3">
+                  <div className="flex-grow">
+                    <h2 className="mb-3 text-lg font-medium text-gray-900 title-font">
                       Pickup Food!
                     </h2>
-                    <p class="leading-relaxed text-base">
+                    <p className="text-base leading-relaxed">
                       Pick-Up your food if you are taking it away or just seat,
                       relax and have it on your table when ready !
                     </p>
                   </div>
                 </div>
-                <div class="p-4 md:w-1/3 flex flex-col text-center items-center">
-                  <div class="w-20 h-20 inline-flex items-center justify-center rounded-full bg-yellow-100 text-yellow-500 mb-5 flex-shrink-0">
+                <div className="flex flex-col items-center p-4 text-center md:w-1/3">
+                  <div className="inline-flex items-center justify-center flex-shrink-0 w-20 h-20 mb-5 text-yellow-500 bg-yellow-100 rounded-full">
                     <img src={enjoy} alt="enjoy" />
                   </div>
-                  <div class="flex-grow">
-                    <h2 class="text-gray-900 text-lg title-font font-medium mb-3">
+                  <div className="flex-grow">
+                    <h2 className="mb-3 text-lg font-medium text-gray-900 title-font">
                       Enjoy Food!
                     </h2>
-                    <p class="leading-relaxed text-base">
+                    <p className="text-base leading-relaxed">
                       As soon as you get your food you can enjoy it till the
                       last piece of it and come back soon for another one !
                     </p>
@@ -351,46 +347,45 @@ const Home = () => {
 
       {/* About section */}
       <section id="about-section" className="py-4">
-        <div class="container px-5 py-24 mx-auto flex sm:flex-nowrap flex-wrap">
-          <div class="lg:w-2/3 md:w-1/2 bg-gray-300 rounded-lg overflow-hidden sm:mr-10 p-10 flex items-end justify-start relative">
+        <div className="container flex flex-wrap px-5 py-24 mx-auto sm:flex-nowrap">
+          <div className="relative flex items-end justify-start p-10 overflow-hidden bg-gray-300 rounded-lg lg:w-2/3 md:w-1/2 sm:mr-10">
             <iframe
               width="100%"
               height="100%"
-              class="absolute inset-0"
-              frameborder="0"
+              className="absolute inset-0"
               title="map"
-              marginheight="0"
-              marginwidth="0"
               src="https://maps.google.com/maps?width=100%&amp;height=600&amp;hl=en&amp;q=%C4%B0zmir+(My%20Business%20Name)&amp;ie=UTF8&amp;t=&amp;z=14&amp;iwloc=B&amp;output=embed"
               style={{ filter: 'grayscale(1) contrast(1.2) opacity(0.4)' }}
             ></iframe>
-            <div class="bg-white relative flex flex-wrap py-6 rounded shadow-md">
-              <div class="lg:w-1/2 px-6">
-                <h2 class="title-font font-semibold text-gray-900 tracking-widest text-xs">
+            <div className="relative flex flex-wrap py-6 bg-white rounded shadow-md">
+              <div className="px-6 lg:w-1/2">
+                <h2 className="text-xs font-semibold tracking-widest text-gray-900 title-font">
                   ADDRESS
                 </h2>
-                <p class="mt-1">
+                <p className="mt-1">
                   My Pizza app store, North Bangalore, 3rd cross church street
                   road
                 </p>
               </div>
-              <div class="lg:w-1/2 px-6 mt-4 lg:mt-0">
-                <h2 class="title-font font-semibold text-gray-900 tracking-widest text-xs">
+              <div className="px-6 mt-4 lg:w-1/2 lg:mt-0">
+                <h2 className="text-xs font-semibold tracking-widest text-gray-900 title-font">
                   EMAIL
                 </h2>
-                <a class="text-yellow-500 leading-relaxed">example@email.com</a>
-                <h2 class="title-font font-semibold text-gray-900 tracking-widest text-xs mt-4">
+                <a className="leading-relaxed text-yellow-500">
+                  example@email.com
+                </a>
+                <h2 className="mt-4 text-xs font-semibold tracking-widest text-gray-900 title-font">
                   PHONE
                 </h2>
-                <p class="leading-relaxed">123-456-7890</p>
+                <p className="leading-relaxed">123-456-7890</p>
               </div>
             </div>
           </div>
-          <div class="lg:w-1/3 md:w-1/2 bg-white flex flex-col md:ml-auto w-full md:py-8 mt-8 md:mt-0">
-            <h2 class="pb-5 text-3xl font-bold text-left text-transparent bg-gradient-to-r from-orange-600 to-orange-100 bg-clip-text">
+          <div className="flex flex-col w-full mt-8 bg-white lg:w-1/3 md:w-1/2 md:ml-auto md:py-8 md:mt-0">
+            <h2 className="pb-5 text-3xl font-bold text-left text-transparent bg-gradient-to-r from-orange-600 to-orange-100 bg-clip-text">
               About
             </h2>
-            <p class="leading-relaxed mb-5 text-gray-600">
+            <p className="mb-5 leading-relaxed text-gray-600">
               At Pizza App, we are passionate about crafting exceptional pizzas
               that bring joy to every bite. Our journey began with a commitment
               to using the freshest, high-quality ingredients, combined with

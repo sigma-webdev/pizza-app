@@ -33,13 +33,12 @@ function App() {
 
         {/* signUp, login, product details  */}
         <Route element={<NotRequireAuth />}>
-          <Route path="/product/:productId" element={<ProductDetails />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/forget-password" element={<ForgetPassword />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
         </Route>
-
+        <Route path="/product/:productId" element={<ProductDetails />} />
         {/* user data */}
         <Route element={<RequireAuth allowedRoles={['USER', 'ADMIN']} />}>
           <Route path="/user/profile" element={<Profile />} />

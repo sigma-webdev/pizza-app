@@ -32,7 +32,7 @@ const ProductDetails = () => {
   const handleCart = async () => {
     const res = await dispatch(addProductToCard(productId));
 
-    if (res?.meta?.requestStatus === 'fulfilled') {
+    if (res.payload) {
       await dispatch(getCartDetails());
       setIsInCart(true);
     }
@@ -56,6 +56,7 @@ const ProductDetails = () => {
       setIsInCart(false);
     }
   };
+  console.log(cartsData);
 
   return (
     <Layout>

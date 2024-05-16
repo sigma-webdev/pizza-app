@@ -14,11 +14,6 @@ const Order = () => {
   const [detail, setDetail] = useState({
     paymentMethod: '',
     address: ' ',
-    // user: cartsData?.user,
-    // quantity: cartsData?.quantity,
-    // items: cartsData?.items,
-    // totalPrice: cartsData?.totalPrice,
-    // status: 'ORDERED',
   });
   useEffect(() => {
     (async () => {
@@ -34,14 +29,16 @@ const Order = () => {
     });
   };
 
-  const placeOrderHandler = async () => {
-    const res = await dispatch(placeOrder({ cartId: cartsData?._id, detail }));
-
-    if (res?.meta?.requestStatus === 'fulfilled') {
-      console.log(res);
-      toast.success('Order placed successfully');
-      navigate('/order/success', { replace: true });
+  const placeOrderHandler = async (e) => {
+    e.preventDefault();
+    if (detail.paymentMethod == '') {
+      toast.error('Payment method field missing');
+      return;
     }
+    await dispatch(placeOrder({ cartId: cartsData?._id, detail }));
+
+    toast.success('Order placed successfully');
+    navigate('/order/success', { replace: true });
   };
 
   return (
@@ -54,27 +51,33 @@ const Order = () => {
               Thanks for Choosing us{' '}
             </h1>
             <p class="lg:w-2/3 mx-auto leading-relaxed text-base">
-              Total Price -{' '}
+              Total Price -
               <span className="font-bold text-red-400">
-                ₹{cartsData?.totalPrice + 89}/-
+                ₹{cartsData?.totalPrice}/-
               </span>{' '}
-              , Please proceed to pay
             </p>
           </div>
-          <div class="flex lg:w-3/4 w-full sm:flex-row flex-col mx-auto px-8 sm:space-x-4 sm:space-y-0 space-y-4 sm:px-0 items-end">
+          <form
+            onSubmit={(e) => placeOrderHandler(e)}
+            class="flex lg:w-3/4 w-full sm:flex-row flex-col mx-auto px-8 sm:space-x-4 sm:space-y-0 space-y-4 sm:px-0 items-end"
+          >
             <div class="relative flex-grow w-full">
-              <label for="payment" class="leading-7 text-sm text-gray-600">
+              <label
+                for="paymentMethod"
+                class="leading-7 text-sm text-gray-600"
+              >
                 PaymentMethod
               </label>
-              <input
-                placeholder="Online or Offline"
-                required
+              <select
+                className="p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 onChange={handleUserInput}
-                type="text"
-                id="paymentMethod"
                 name="paymentMethod"
-                class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-transparent focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-              />
+                required
+              >
+                <option className="bg-yellow-500">Select PaymentMethod</option>
+                <option value="ONLINE"> Online </option>
+                <option value="OFFLINE"> Offline </option>
+              </select>
             </div>
             <div class="relative flex-grow w-full">
               <label for="address" class="leading-7 text-sm text-gray-600">
@@ -91,12 +94,12 @@ const Order = () => {
               />
             </div>
             <button
-              onClick={placeOrderHandler}
+              type="submit"
               class="text-white bg-yellow-500 border-0 py-2 px-8 focus:outline-none hover:bg-yellow-600 rounded text-sm"
             >
               Place Order
             </button>
-          </div>
+          </form>
         </div>
       </section>
     </Layout>

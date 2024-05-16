@@ -4,10 +4,12 @@ import { Layout } from '../../Layout/Layout';
 import { useDispatch, useSelector } from 'react-redux';
 import { cancelOrder, loggedInUserOrder } from '../../Redux/OrderSlice';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const ViewOrder = () => {
   const dispatch = useDispatch();
   const [orders, setOrders] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUserOrder = async () => {
@@ -33,7 +35,10 @@ const ViewOrder = () => {
 
     // Check user's response
     if (userConfirmed) {
-      await dispatch(cancelOrder({ id: id, status: 'CANCELLED' }));
+      const res = await dispatch(cancelOrder({ id: id, status: 'CANCELLED' }));
+      if (res.payload) {
+        navigate('/');
+      }
     }
   };
 
