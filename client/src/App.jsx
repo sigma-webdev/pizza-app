@@ -19,6 +19,7 @@ import DashBoard from './Pages/Admin/DashBoard';
 import AddProduct from './Pages/Admin/AddProduct';
 import EditProduct from './Pages/Admin/EditProduct';
 import UpdateOrder from './Pages/Admin/UpdateOrder';
+import EditUser from './Pages/Admin/EditUser';
 
 function App() {
   return (
@@ -53,6 +54,7 @@ function App() {
           <Route path="/admin/add-product" element={<AddProduct />} />
           <Route path="/admin/edit-product/:id" element={<EditProduct />} />
           <Route path="/admin/update-order/:id" element={<UpdateOrder />} />
+          <Route path="/admin/edit-user/:id" element={<EditUser />} />
         </Route>
 
         {/* page not found */}

@@ -190,8 +190,9 @@ const DashBoard = () => {
                         <td className="px-4 py-3">{item.mobileNumber}</td>
                         <td className="px-4 py-3">{item.role}</td>
                         <td className="px-4 py-3 cursor-pointer hover:text-yellow-600">
-                          {' '}
-                          update User
+                          <Link to={`/admin/edit-user/${item?._id}`}>
+                            Update User
+                          </Link>
                         </td>
                         <td className="px-4 py-3 cursor-pointer hover:text-red-500">
                           {' '}

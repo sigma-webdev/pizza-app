@@ -44,6 +44,47 @@ export const getAllOrders = createAsyncThunk(
   }
 );
 
+// handle to get user by id
+export const getUserById = createAsyncThunk(
+  'admin/user/edit-user',
+  async (id) => {
+    try {
+      const res = axiosInstance.get(`/user/user-detail/${id}`);
+      toast.promise(res, {
+        loading: 'Fetching the user details',
+        success: 'User details fetch successfully',
+        error: 'User details not able to fetch',
+      });
+      const response = await res;
+      console.log(response);
+      return response?.data?.user;
+    } catch (error) {
+      toast.error(error?.response?.data?.message);
+    }
+  }
+);
+// handle to get user by id
+export const updateUserDetails = createAsyncThunk(
+  'admin/user/update',
+  async ({ id, tempFormData }) => {
+    console.log(id, tempFormData);
+    try {
+      const res = axiosInstance.patch(`/user/update-user/${id}`, tempFormData);
+      toast.promise(res, {
+        loading: 'Updating the user details',
+        success: 'User details updated successfully',
+        error: 'User details not able to update',
+      });
+      const response = await res;
+      console.log(response);
+      return response?.data?.updatedUser;
+    } catch (error) {
+      console.log(error);
+      toast.error(error?.response?.data?.message);
+    }
+  }
+);
+
 const adminSlice = createSlice({
   name: 'adminData',
   initialState,
