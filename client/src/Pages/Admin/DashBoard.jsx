@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteProduct, getAllProducts } from '../../Redux/ProductSlice';
 import { Layout } from '../../Layout/Layout';
 
-import { getAllOrders, getAllUsers } from '../../Redux/AdminSlice';
+import { deleteUser, getAllOrders, getAllUsers } from '../../Redux/AdminSlice';
 import { Link } from 'react-router-dom';
 
 const DashBoard = () => {
@@ -45,6 +45,19 @@ const DashBoard = () => {
       const res = await dispatch(deleteProduct(id));
       if (res.payload) {
         await dispatch(getAllProducts({ limitValue: '', categoryValue: '' }));
+      }
+    }
+  };
+
+  // handle user delete
+  const handleUserDelete = async (id) => {
+    const confirm = window.confirm(
+      'Are you sure you want to delete the user ?'
+    );
+    if (confirm) {
+      const res = await dispatch(deleteUser(id));
+      if (res.payload) {
+        handleGetAllUser();
       }
     }
   };
@@ -194,7 +207,10 @@ const DashBoard = () => {
                             Update User
                           </Link>
                         </td>
-                        <td className="px-4 py-3 cursor-pointer hover:text-red-500">
+                        <td
+                          className="px-4 py-3 cursor-pointer hover:text-red-500"
+                          onClick={() => handleUserDelete(item._id)}
+                        >
                           {' '}
                           Delete User
                         </td>

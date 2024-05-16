@@ -219,7 +219,7 @@ export const updateUser = asyncHandler(async (req, res, next) => {
 export const deleteUser = asyncHandler(async (req, res, next) => {
   const userId = req.params.id;
 
-  const deletedUser = await User.findById(userId);
+  const deletedUser = await User.findByIdAndDelete(userId);
 
   if (!deletedUser) {
     return next(new AppError("Not able to delete user", 401));

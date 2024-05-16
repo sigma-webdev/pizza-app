@@ -67,7 +67,6 @@ export const getUserById = createAsyncThunk(
 export const updateUserDetails = createAsyncThunk(
   'admin/user/update',
   async ({ id, tempFormData }) => {
-    console.log(id, tempFormData);
     try {
       const res = axiosInstance.patch(`/user/update-user/${id}`, tempFormData);
       toast.promise(res, {
@@ -84,6 +83,23 @@ export const updateUserDetails = createAsyncThunk(
     }
   }
 );
+
+// handle user delete
+export const deleteUser = createAsyncThunk('admin/user/delete', async (id) => {
+  console.log(id);
+  try {
+    const res = axiosInstance.delete(`/user/delete-user/${id}`);
+    toast.promise(res, {
+      loading: 'Deleting the user details',
+      success: 'User details deleted successfully',
+      error: 'User details not able to delete',
+    });
+    const response = await res;
+    return response?.data?.deletedUser;
+  } catch (error) {
+    toast.error(error?.response?.data?.message);
+  }
+});
 
 const adminSlice = createSlice({
   name: 'adminData',
