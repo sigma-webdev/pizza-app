@@ -49,7 +49,7 @@ export const Layout = ({ children }) => {
         </div>
 
         {/* center nav items  */}
-        <div>
+        <div className="hidden md:block">
           {location.pathname === '/' && (
             <ul className="flex gap-4">
               <li className="hover:text-[#FF9110]">

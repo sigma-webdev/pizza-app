@@ -53,9 +53,9 @@ const Home = () => {
   return (
     <Layout>
       {/* hero section */}
-      <section className="flex items-center justify-center py-5 gap-7 bg-gradient-to-r from-amber-50 to-orange-300 ">
-        <div className="w-2/6">
-          <div className="flex text-4xl">
+      <section className="flex flex-col-reverse items-center justify-center py-5 md:flex-row md:gap-7 bg-gradient-to-r from-amber-50 to-orange-300 ">
+        <div className="w-4/6 ml-4 text-center md:w-2/6 md:-ml-4 md:text-left">
+          <div className="flex justify-center text-4xl md:justify-normal">
             <h1 className="pb-5 font-bold text-transparent bg-gradient-to-r from-orange-500 to-orange-200 bg-clip-text">
               {' '}
               Enjoy the Slice{' '}
@@ -113,7 +113,7 @@ const Home = () => {
           </p>
 
           {/* categories */}
-          <div className="flex justify-center py-4">
+          <div className="flex items-center justify-center h-full py-4 text-sm md:text-md">
             <p
               className={`w-40 px-4 py-2 text-center border hover:text-white hover:bg-yellow-500 ${category == '' ? 'bg-yellow-500' : ''}`}
               onClick={() => handleSwitchCat('')}
@@ -133,7 +133,7 @@ const Home = () => {
               onClick={() => handleSwitchCat('non-veg')}
             >
               {' '}
-              Non-Veg Pizza{' '}
+              Non-Veg
             </p>
             <p
               className={`w-40 px-4 py-2 text-center border hover:text-white hover:bg-yellow-500 ${category == 'drink' ? 'bg-yellow-500' : ''}`}
@@ -214,7 +214,7 @@ const Home = () => {
         id="services-section"
         className="py-4 mt-6 bg-gradient-to-r from-amber-50 to-orange-300"
       >
-        <div class="container flex">
+        <div class="container flex flex-col md:flex-row">
           <div
             class="lg:w-1/2 rounded-lg  flex
            justify-center items-center flex-col"
@@ -307,7 +307,7 @@ const Home = () => {
                   </div>
                   <div class="flex-grow">
                     <h2 class="text-gray-900 text-lg title-font font-medium mb-3">
-                      Order Food !
+                      Order Food!
                     </h2>
                     <p class="leading-relaxed text-base">
                       As easy as never ever before ! Now with our advanced
@@ -321,7 +321,7 @@ const Home = () => {
                   </div>
                   <div class="flex-grow">
                     <h2 class="text-gray-900 text-lg title-font font-medium mb-3">
-                      Pick-Up Food !
+                      Pickup Food!
                     </h2>
                     <p class="leading-relaxed text-base">
                       Pick-Up your food if you are taking it away or just seat,
@@ -335,7 +335,7 @@ const Home = () => {
                   </div>
                   <div class="flex-grow">
                     <h2 class="text-gray-900 text-lg title-font font-medium mb-3">
-                      Enjoy Food !
+                      Enjoy Food!
                     </h2>
                     <p class="leading-relaxed text-base">
                       As soon as you get your food you can enjoy it till the
