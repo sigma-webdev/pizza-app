@@ -182,6 +182,7 @@ export const userDetails = asyncHandler(async (req, res, next) => {
  */
 export const updateUser = asyncHandler(async (req, res, next) => {
   const userId = req.params.id;
+  console.log(userId);
 
   const user = await User.findById(userId);
   if (!user) {
@@ -195,13 +196,9 @@ export const updateUser = asyncHandler(async (req, res, next) => {
     update.avatar = req.user.avatar;
   }
 
-  console.log("update", update);
-
-  const updatedUser = await User.findOneAndUpdate(
-    { _id: req.user.id },
-    update,
-    { new: true }
-  );
+  const updatedUser = await User.findOneAndUpdate({ _id: userId }, update, {
+    new: true,
+  });
 
   res.status(200).json({
     success: true,
