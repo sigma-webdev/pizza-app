@@ -197,8 +197,6 @@ export const getUserOrders = asyncHandler(async (req, res, next) => {
   // make sure the user have cart items
   const order = await Order.find({ user: userId }).populate("items");
 
-  console.log(order);
-
   if (!order || order.length === 0) {
     return next(new AppError("Order not available  ", 404));
   }

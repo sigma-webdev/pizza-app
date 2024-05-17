@@ -2,11 +2,10 @@ import AppError from "../utils/appError.utils.js";
 import asyncHandler from "./asyncHandler.middleware.js";
 import jwt from "jsonwebtoken";
 export const isLoggedIn = asyncHandler(async (req, res, next) => {
-  // TODO: check for the header as well
-
   const token =
-    (Object.keys(req.cookies).length > 1 && req.cookies.Token) ||
+    (Object.keys(req.cookies).length > 1 && req.cookies.token) ||
     (req.headers.authorization && req.headers["authorization"].split(" ")[1]);
+
   if (!token) {
     return next(new AppError("NOT authorized", 401));
   }
