@@ -3,11 +3,14 @@ import asyncHandler from "./asyncHandler.middleware.js";
 import jwt from "jsonwebtoken";
 export const isLoggedIn = asyncHandler(async (req, res, next) => {
   // TODO: check for the header as well
-  const { token } = req.cookies;
 
+  const token =
+    (Object.keys(req.cookies).length > 1 && req.cookies.Token) ||
+    (req.headers.authorization && req.headers["authorization"].split(" ")[1]);
   if (!token) {
-    return next(new AppError("Unauthorized, Please Login to continue", 401));
+    return next(new AppError("NOT authorized", 401));
   }
+
   // decoding the token using jwt package verify method
   const decoded = await jwt.verify(token, process.env.JWT_SECRET);
 

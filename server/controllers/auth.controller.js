@@ -50,9 +50,6 @@ export const registerUser = asyncHandler(async (req, res, next) => {
   // Setting the password to undefined so it does not get sent in the response
   user.password = undefined;
 
-  // Setting the token in the cookie with name token along with cookieOptions
-  res.cookie("token", token, cookieOptions);
-
   // If all good send the response to the frontend
   res.status(201).json({
     success: true,
@@ -100,6 +97,7 @@ export const loginUser = asyncHandler(async (req, res, next) => {
     success: true,
     message: "User logged in successfully",
     user,
+    token: token,
   });
 });
 

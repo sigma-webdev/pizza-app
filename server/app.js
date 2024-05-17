@@ -19,6 +19,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // third party middlewares
+// app.use(
+//   cors({
+//     origin: [
+//       "http://localhost:5173",
+//       "https://pizza-app-alpha-pink.vercel.app",
+//     ],
+//     credentials: true,
+//     allowedHeaders: ["Content-Type", "Authorization"],
+//   })
+// );
+
 app.use(
   cors({
     origin: [
@@ -26,7 +37,6 @@ app.use(
       "https://pizza-app-alpha-pink.vercel.app",
     ],
     credentials: true,
-    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 app.use(cookieParser());
