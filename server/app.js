@@ -23,7 +23,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://pizza-app-alpha-pink.vercel.app/",
+      "https://pizza-app-alpha-pink.vercel.app",
     ],
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],

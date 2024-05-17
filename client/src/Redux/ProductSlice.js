@@ -24,6 +24,7 @@ export const getAllProducts = createAsyncThunk(
       const response = await res;
       return response?.data?.data?.products;
     } catch (error) {
+      console.log(error);
       toast.error(error?.response?.data?.message);
     }
   }
