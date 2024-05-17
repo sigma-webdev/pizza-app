@@ -24,14 +24,17 @@ const Login = () => {
   };
 
   // function to login
-  const handleLogin = async () => {
+  const handleLogin = async (event) => {
+    event.preventDefault();
     if (!loginData.email || !loginData.password) {
       toast.error('Please fill all the fields');
       return;
     }
+
     const res = await dispatch(login(loginData));
 
     if (res?.payload?.success) {
+      window.location.reload();
       navigate('/');
     }
   };
