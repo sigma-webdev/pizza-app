@@ -192,7 +192,6 @@ export const updateOrder = asyncHandler(async (req, res, next) => {
 
 export const getUserOrders = asyncHandler(async (req, res, next) => {
   const userId = req.user.id;
-  console.log(userId);
 
   // make sure the user have cart items
   const order = await Order.find({ user: userId }).populate("items");
