@@ -127,7 +127,6 @@ export const changePassword = createAsyncThunk(
 export const forgetPassword = createAsyncThunk(
   '/auth/forgot-password',
   async (email) => {
-    console.log(email);
     try {
       let res = axiosInstance.post('/auth/reset', { email });
 
@@ -150,7 +149,6 @@ export const forgetPassword = createAsyncThunk(
 export const resetPassword = createAsyncThunk(
   '/user/reset',
   async ({ token, password }) => {
-    console.log(token, password);
     try {
       let res = axiosInstance.post(`/auth/reset/${token}`, { password });
 
@@ -175,11 +173,9 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {},
-  //   TODO: 2
   extraReducers: (builder) => {
     builder
       .addCase(login.fulfilled, (state, action) => {
-        console.log(action?.payload?.success);
         if (action?.payload?.success) {
           localStorage.setItem('data', JSON.stringify(action?.payload?.user));
           localStorage.setItem('isLoggedIn', true);
@@ -196,7 +192,6 @@ const authSlice = createSlice({
         state.data = {};
       })
 
-      // TODO: why set again
       // add case when user load details
       .addCase(getUserData.fulfilled, (state, action) => {
         localStorage.setItem('data', JSON.stringify(action?.payload?.user));
@@ -208,6 +203,5 @@ const authSlice = createSlice({
   },
 });
 
-// TODO: 1
 export const {} = authSlice.actions;
 export default authSlice.reducer;
